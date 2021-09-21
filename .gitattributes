@@ -1,0 +1,21 @@
+/.editorconfig    export-ignore
+/.gitattributes   export-ignore
+/.github          export-ignore
+/.gitignore       export-ignore
+/.idea            export-ignore
+/.phive           export-ignore
+/.psalm           export-ignore
+/CHANGELOG.md     export-ignore
+/README.md        export-ignore
+/build            export-ignore
+/build.png        export-ignore
+/docs             export-ignore
+/examples         export-ignore
+/phpstan          export-ignore
+/phpunit.xml      export-ignore
+/phpunit.xml.dist export-ignore
+/tests            export-ignore
+
+# Configure diff output for .php and .phar files.
+*.php   diff=php
+*.phar  -diff

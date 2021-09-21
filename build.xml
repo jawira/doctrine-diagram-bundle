@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project name="Doctrine Diagram Bundle" default="help" phingVersion="3">
+  <description>Create diagrams from your doctrine database</description>
+
+  <target name="setup" depends="composer:install"/>
+  <target name="qa" depends="composer:validate,composer:normalize"/>
+
+  <target name="composer:install" description="PHP dependencies">
+    <composer command="install">
+      <arg value="--no-interaction"/>
+      <arg value="--prefer-dist"/>
+      <arg value="--no-progress"/>
+      <arg value="--ansi"/>
+    </composer>
+  </target>
+
+  <target name="composer:validate" description="Validate composer.json">
+    <composer command="validate">
+      <arg value="--ansi"/>
+    </composer>
+  </target>
+
+  <target name="composer:normalize" description="Normalize composer.json">
+    <composer command="normalize">
+      <arg value="--ansi"/>
+      <arg value="--diff"/>
+      <arg value="--indent-size=2"/>
+      <arg value="--indent-style=space"/>
+    </composer>
+  </target>
+
+  <target name="help">
+    <uptodate property="uptodate.visualizer" srcfile="build.xml" targetfile="build.png"/>
+    <runtarget target="visualizer"/>
+    <open path="build.svg"/>
+  </target>
+
+  <target name="visualizer" unless="uptodate.visualizer" description="Create buildfile map">
+    <visualizer format="svg"/>
+  </target>
+
+</project>

@@ -1,0 +1,27 @@
+root = true
+
+[*]
+charset                  = utf-8
+trim_trailing_whitespace = true
+end_of_line              = lf
+insert_final_newline     = true
+ij_visual_guides         = 80, 120
+
+[*.{php, yml, yaml, twig, xml}]
+indent_size  = 2
+indent_style = space
+
+[*.{md, markdown}]
+trim_trailing_whitespace = false
+indent_size              = 2
+indent_style             = space
+
+[{Dockerfile, *.Dockerfile}]
+indent_size  = 4
+indent_style = space
+
+[.editorconfig]
+ij_editorconfig_align_group_field_declarations     = true
+ij_editorconfig_spaces_around_assignment_operators = true
+ij_editorconfig_space_before_comma                 = false
+ij_editorconfig_space_after_comma                  = true

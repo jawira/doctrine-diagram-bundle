@@ -1,0 +1,7 @@
+/.idea/
+/site/
+/vendor/
+/.makerc
+/composer-setup.php
+/side-suite-*
+/composer.lock
