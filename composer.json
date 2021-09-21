@@ -1,17 +1,35 @@
 {
-  "license": [
-    "MIT"
+  "name": "jawira/doctrine-diagram-bundle",
+  "type": "symfony-bundle",
+  "description": "Generate database diagrams",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Jawira Portugal"
+    }
   ],
   "require": {
-    "jawira/db-draw": "^1.2"
+    "php": "^7.4 || ^8.0",
+    "doctrine/orm": "^2.9",
+    "doctrine/persistence": "^2.2",
+    "jawira/db-draw": "^1.2",
+    "symfony/console": "^5.0",
+    "symfony/filesystem": "^5.0",
+    "symfony/framework-bundle": "^5.0"
   },
   "require-dev": {
     "ergebnis/composer-normalize": "^2.15",
-    "jawira/skeleton": "^2.6"
+    "jawira/skeleton": "^2.6",
+    "phpstan/phpstan": "^0.12.99"
   },
   "config": {
     "platform-check": true,
     "preferred-install": "dist",
     "sort-packages": true
+  },
+  "autoload": {
+    "psr-4": {
+      "Jawira\\DoctrineDiagramBundle\\": "src/"
+    }
   }
 }

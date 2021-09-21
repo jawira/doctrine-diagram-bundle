@@ -4,7 +4,17 @@
   <description>Create diagrams from your doctrine database</description>
 
   <target name="setup" depends="composer:install"/>
-  <target name="qa" depends="composer:validate,composer:normalize"/>
+  <target name="qa" depends="composer:validate,composer:normalize,phpstan:analyse"/>
+
+  <target name="phpstan:analyse" description="Analyse source code">
+    <exec executable="vendor/bin/phpstan" passthru="true" checkreturn="true">
+      <arg value="analyse"/>
+      <arg value="--no-progress"/>
+      <arg value="--ansi"/>
+      <arg value="--level=max"/>
+      <arg path="src"/>
+    </exec>
+  </target>
 
   <target name="composer:install" description="PHP dependencies">
     <composer command="install">

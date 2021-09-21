@@ -16,7 +16,7 @@
 
 ## Contributing
 
-If you liked this project, ⭐ star it on GitHub.
+If you liked this project, ⭐ [star it on GitHub](https://github.com/jawira/doctrine-diagram-bundle).
 
 ## License
 
