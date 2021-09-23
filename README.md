@@ -1,18 +1,30 @@
 # Doctrine Diagram Bundle
 
-![targets](./build.svg)
+**Create a relational diagram from your Doctrine database.**
+
+This *Symfony Bundle* is still a *work in progress*. Please report any
+bug: https://github.com/jawira/doctrine-diagram-bundle/issues
+
+[![Latest Stable Version](http://poser.pugx.org/jawira/doctrine-diagram-bundle/v)](https://packagist.org/packages/jawira/doctrine-diagram-bundle)
+[![Total Downloads](http://poser.pugx.org/jawira/doctrine-diagram-bundle/downloads)](https://packagist.org/packages/jawira/doctrine-diagram-bundle)
+[![PHP Version Require](http://poser.pugx.org/jawira/doctrine-diagram-bundle/require/php)](https://packagist.org/packages/jawira/doctrine-diagram-bundle)
+[![License](http://poser.pugx.org/jawira/doctrine-diagram-bundle/license)](https://packagist.org/packages/jawira/doctrine-diagram-bundle)
 
 ## Usage
 
-@todo
+Run this command to generate a database diagram at the root of your project:
+
+```console
+bin/console jawira:doctrine:diagram
+```
+
+![diagram](docs/midi.png)
 
 ## How to install
 
-@todo
-
-## Requirements
-
-@todo
+```console
+composer require jawira/doctrine-diagram-bundle
+```
 
 ## Contributing
 
