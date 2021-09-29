@@ -31,6 +31,9 @@ class DoctrineDiagramCommand extends Command
     $connectionName = $this->dd->doctrine->getDefaultConnectionName();
 
     $this->setDescription('Create database diagram')
+         ->addUsage('--connection=default')
+         ->addUsage('--size=mini')
+         ->addUsage('--filename=my-diagram --extension=png')
          ->addOption('connection', 'c', InputOption::VALUE_REQUIRED, 'Doctrine connection to use', $connectionName)
          ->addOption('size', 's', InputOption::VALUE_REQUIRED, 'Diagram size (mini, midi or maxi)', DbDraw::MIDI)
          ->addOption('filename', 'f', InputOption::VALUE_REQUIRED, 'File name without extension', 'database')

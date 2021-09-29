@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <project name="Doctrine Diagram Bundle" default="help" phingVersion="3">
   <description>Create diagrams from your doctrine database</description>
 
@@ -43,11 +42,31 @@
   <target name="help">
     <uptodate property="uptodate.visualizer" srcfile="build.xml" targetfile="docs/build.svg"/>
     <runtarget target="visualizer"/>
-    <open path="doc/build.svg"/>
+    <open path="docs/build.svg"/>
   </target>
 
   <target name="visualizer" unless="uptodate.visualizer" description="Create buildfile map">
     <visualizer format="svg" destination="docs"/>
   </target>
 
+  <target name="mkdocs:build" description="Build documentation">
+    <exec executable="mkdocs" passthru="true" checkreturn="true">
+      <arg value="build"/>
+      <arg value="--verbose"/>
+    </exec>
+  </target>
+
+  <target name="mkdocs:serve" description="Run local server">
+    <exec executable="mkdocs" passthru="true" checkreturn="true">
+      <arg value="serve"/>
+      <arg value="--verbose"/>
+    </exec>
+  </target>
+
+  <target name="mkdocs:gh-deploy" description="Deploy docs to github">
+    <exec executable="mkdocs" passthru="true" checkreturn="true">
+      <arg value="gh-deploy"/>
+      <arg value="--verbose"/>
+    </exec>
+  </target>
 </project>
