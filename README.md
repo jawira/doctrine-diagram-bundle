@@ -1,9 +1,9 @@
 # Doctrine Diagram Bundle
 
-**Create a relational diagram from your Doctrine database.**
+**📐 Symfony Bundle to generate database diagrams.**
 
-This *Symfony Bundle* is still a *work in progress*. Please report any
-bug: https://github.com/jawira/doctrine-diagram-bundle/issues
+This project is still a *work in progress*. 
+Please report any bug: <https://github.com/jawira/doctrine-diagram-bundle/issues>
 
 [![Latest Stable Version](http://poser.pugx.org/jawira/doctrine-diagram-bundle/v)](https://packagist.org/packages/jawira/doctrine-diagram-bundle)
 [![Total Downloads](http://poser.pugx.org/jawira/doctrine-diagram-bundle/downloads)](https://packagist.org/packages/jawira/doctrine-diagram-bundle)
@@ -41,19 +41,16 @@ This library is licensed under the [MIT license](LICENSE.md).
 <dl>
 
 <dt>
-  <a href="https://packagist.org/packages/jawira/case-converter">jawira/case-converter 
-  <img alt="GitHub stars" src="https://badgen.net/github/stars/jawira/case-converter?icon=github"/></a>
+    <a href="https://packagist.org/packages/jawira/mysql-draw">jawira/mysql-draw
+    <img alt="GitHub stars" src="https://badgen.net/github/stars/jawira/mysql-draw?icon=github"/></a>
 </dt>
-<dd>Convert strings between 13 naming conventions: Snake case, Camel case,
-  Pascal case, Kebab case, Ada case, Train case, Cobol case, Macro case,
-  Upper case, Lower case, Sentence case, Title case and Dot notation.
-</dd>
+<dd>Standalone tool to generate MySQL database diagrams.</dd>
 
 <dt>
-  <a href="https://packagist.org/packages/jawira/emoji-catalog">jawira/emoji-catalog
-  <img alt="GitHub stars" src="https://badgen.net/github/stars/jawira/emoji-catalog?icon=github"/></a>
+    <a href="https://packagist.org/packages/jawira/db-draw">jawira/db-draw
+    <img alt="GitHub stars" src="https://badgen.net/github/stars/jawira/db-draw?icon=github"/></a>
 </dt>
-<dd>Get access to +3000 emojis as class constants.</dd>
+<dd>Library to generate database diagrams.</dd>
 
 <dt>
   <a href="https://packagist.org/packages/jawira/plantuml">jawira/plantuml
