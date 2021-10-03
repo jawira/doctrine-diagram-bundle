@@ -1,7 +1,13 @@
 {
   "name": "jawira/doctrine-diagram-bundle",
   "type": "symfony-bundle",
-  "description": "Create a relational diagram from your Doctrine database",
+  "description": "\ud83d\udcd0 Symfony Bundle to generate database diagrams",
+  "keywords": [
+    "symfony-bundle",
+    "diagram",
+    "doctrine",
+    "database"
+  ],
   "license": "MIT",
   "authors": [
     {
@@ -32,5 +38,8 @@
     "psr-4": {
       "Jawira\\DoctrineDiagramBundle\\": "src/"
     }
+  },
+  "support": {
+    "issues": "https://github.com/jawira/doctrine-diagram-bundle/issues"
   }
 }
