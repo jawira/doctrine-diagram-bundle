@@ -1,45 +1,51 @@
 {
   "name": "jawira/doctrine-diagram-bundle",
-  "type": "symfony-bundle",
   "description": "\ud83d\udcd0 Symfony Bundle to generate database diagrams",
+  "license": "MIT",
+  "type": "symfony-bundle",
   "keywords": [
     "symfony-bundle",
     "diagram",
     "doctrine",
     "database"
   ],
-  "license": "MIT",
   "authors": [
     {
       "name": "Jawira Portugal"
     }
   ],
+  "support": {
+    "issues": "https://github.com/jawira/doctrine-diagram-bundle/issues"
+  },
   "require": {
     "php": "^7.4 || ^8.0",
     "doctrine/orm": "^2.9",
     "doctrine/persistence": "^2.2",
     "jawira/db-draw": "^1.2",
     "jawira/plantuml-client": "^1.0",
-    "symfony/console": "^5.0",
-    "symfony/filesystem": "^5.0",
-    "symfony/framework-bundle": "^5.0"
+    "symfony/console": "^5.0 || ^6.0",
+    "symfony/filesystem": "^5.0 || ^6.0",
+    "symfony/framework-bundle": "^5.0 || ^6.0"
   },
   "require-dev": {
     "ergebnis/composer-normalize": "^2.15",
     "jawira/skeleton": "^2.6",
-    "phpstan/phpstan": "^0.12.99"
-  },
-  "config": {
-    "platform-check": true,
-    "preferred-install": "dist",
-    "sort-packages": true
+    "phpstan/extension-installer": "^1.1",
+    "phpstan/phpstan": "^1.8",
+    "phpstan/phpstan-symfony": "^1.2"
   },
   "autoload": {
     "psr-4": {
       "Jawira\\DoctrineDiagramBundle\\": "src/"
     }
   },
-  "support": {
-    "issues": "https://github.com/jawira/doctrine-diagram-bundle/issues"
+  "config": {
+    "allow-plugins": {
+      "ergebnis/composer-normalize": true,
+      "phpstan/extension-installer": true
+    },
+    "platform-check": true,
+    "preferred-install": "dist",
+    "sort-packages": true
   }
 }

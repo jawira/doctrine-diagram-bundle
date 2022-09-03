@@ -22,7 +22,7 @@ class DoctrineDiagram
     $this->doctrine = $doctrine;
   }
 
-  public function generatePuml(string $connectionName, string $size)
+  public function generatePuml(string $connectionName, string $size): string
   {
     $connection = $this->doctrine->getConnection($connectionName);
     /** @var \Doctrine\DBAL\Connection $connection */
@@ -31,7 +31,7 @@ class DoctrineDiagram
     return $dbDraw->generatePuml($size);
   }
 
-  public function convertWithServer(string $puml, string $format)
+  public function convertWithServer(string $puml, string $format): string
   {
     throw_unless(in_array($format, [self::PUML,
                                     Format::SVG,
@@ -43,7 +43,7 @@ class DoctrineDiagram
     return (new Client)->generateImage($puml, $format);
   }
 
-  public function dumpDiagram(string $filename, string $content)
+  public function dumpDiagram(string $filename, string $content): void
   {
     (new Filesystem)->dumpFile($filename, $content);
   }

@@ -42,13 +42,12 @@ class DoctrineDiagramCommand extends Command
     $io = new SymfonyStyle($input, $output);
     $io->text('<info>Doctrine Diagram Bundle</info> by <info>Jawira Portugal</info>');
 
-    $connectionName = $input->getOption('connection');
-    $size           = $input->getOption('size');
-    $filename       = $input->getOption('filename');
-    $format         = $input->getOption('extension');
+    $connectionName = strval($input->getOption('connection'));
+    $size           = strval($input->getOption('size'));
+    $filename       = strval($input->getOption('filename'));
+    $format         = strval($input->getOption('extension'));
     $fullName       = "$filename.$format";
 
-    /** @var \Doctrine\DBAL\Connection $connection */
     $puml    = $this->dd->generatePuml($connectionName, $size);
     $content = $this->dd->convertWithServer($puml, $format);
     $this->dd->dumpDiagram($fullName, $content);
