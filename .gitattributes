@@ -16,6 +16,13 @@
 /phpunit.xml.dist export-ignore
 /tests            export-ignore
 
-# Configure diff output for .php and .phar files.
-*.php   diff=php
-*.phar  -diff
+*.php	text	eol=lf	diff=php
+*.js	text	eol=lf
+*.json	text	eol=lf
+*.svg	text	eol=lf
+*.bat	text	eol=crlf
+*.phar	binary
+*.zip	binary
+*.pdf	binary
+*.png	binary
+*.jpg	binary
