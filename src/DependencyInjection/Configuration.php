@@ -11,7 +11,7 @@ use Symfony\Component\Config\Definition\ConfigurationInterface;
  */
 class Configuration implements ConfigurationInterface
 {
-  public function getConfigTreeBuilder()
+  public function getConfigTreeBuilder(): TreeBuilder
   {
     $buildTree = (new TreeBuilder('doctrine_diagram'));
     /** @var ParentNodeDefinitionInterface $rootNode */
