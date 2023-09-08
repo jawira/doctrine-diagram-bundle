@@ -5,6 +5,7 @@ namespace Jawira\DoctrineDiagramBundle\Command;
 use Doctrine\Persistence\ConnectionRegistry;
 use Jawira\DbDraw\DbDraw;
 use Jawira\DoctrineDiagramBundle\Service\DoctrineDiagram;
+use Jawira\PlantUmlClient\Client;
 use Jawira\PlantUmlClient\Format;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -34,7 +35,8 @@ class DoctrineDiagramCommand extends Command
          ->addOption('connection', 'c', InputOption::VALUE_REQUIRED, 'Doctrine connection to use', $connectionName)
          ->addOption('size', 's', InputOption::VALUE_REQUIRED, 'Diagram size (mini, midi or maxi)', DbDraw::MIDI)
          ->addOption('filename', 'f', InputOption::VALUE_REQUIRED, 'File name without extension', 'database')
-         ->addOption('extension', 'x', InputOption::VALUE_REQUIRED, 'Diagram format (svg, png or puml)', Format::SVG);
+         ->addOption('extension', 'x', InputOption::VALUE_REQUIRED, 'Diagram format (svg, png or puml)', Format::SVG)
+         ->addOption('server', 'r', InputOption::VALUE_REQUIRED, 'plantuml-server', Client::SERVER);
   }
 
   protected function execute(InputInterface $input, OutputInterface $output): int
@@ -46,10 +48,11 @@ class DoctrineDiagramCommand extends Command
     $size           = strval($input->getOption('size'));
     $filename       = strval($input->getOption('filename'));
     $format         = strval($input->getOption('extension'));
+    $server         = strval($input->getOption('server'));
     $fullName       = "$filename.$format";
 
     $puml    = $this->dd->generatePuml($connectionName, $size);
-    $content = $this->dd->convertWithServer($puml, $format);
+    $content = $this->dd->convertWithServer($puml, $format, $server);
     $this->dd->dumpDiagram($fullName, $content);
 
     $io->success($fullName);

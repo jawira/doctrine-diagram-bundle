@@ -31,7 +31,7 @@ class DoctrineDiagram
     return $dbDraw->generatePuml($size);
   }
 
-  public function convertWithServer(string $puml, string $format): string
+  public function convertWithServer(string $puml, string $format, string $server = Client::SERVER): string
   {
     throw_unless(in_array($format, [self::PUML,
                                     Format::SVG,
@@ -40,7 +40,7 @@ class DoctrineDiagram
       return $puml;
     }
 
-    return (new Client)->generateImage($puml, $format);
+    return (new Client($server))->generateImage($puml, $format);
   }
 
   public function dumpDiagram(string $filename, string $content): void
