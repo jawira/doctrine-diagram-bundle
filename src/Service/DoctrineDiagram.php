@@ -15,11 +15,15 @@ class DoctrineDiagram
 {
   const PUML = 'puml';
 
-  public ConnectionRegistry $doctrine;
-
-  public function __construct(ConnectionRegistry $doctrine)
+  public function __construct(
+    public ConnectionRegistry $doctrine,
+    private string $size,
+    private string $filename,
+    private string $extension,
+    private string $server,
+    private string $connection,
+  )
   {
-    $this->doctrine = $doctrine;
   }
 
   public function generatePuml(string $connectionName, string $size): string
@@ -34,8 +38,8 @@ class DoctrineDiagram
   public function convertWithServer(string $puml, string $format, string $server = Client::SERVER): string
   {
     throw_unless(in_array($format, [self::PUML,
-                                    Format::SVG,
-                                    Format::PNG]), new RuntimeException("Invalid format $format"));
+      Format::SVG,
+      Format::PNG]), new RuntimeException("Invalid format $format"));
     if ($format === self::PUML) {
       return $puml;
     }

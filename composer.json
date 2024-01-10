@@ -3,6 +3,7 @@
   "description": "\ud83d\udcd0 Symfony Bundle to generate database diagrams",
   "license": "MIT",
   "type": "symfony-bundle",
+  "homepage": "https://github.com/jawira/doctrine-diagram-bundle",
   "keywords": [
     "symfony-bundle",
     "diagram",
@@ -11,21 +12,22 @@
   ],
   "authors": [
     {
-      "name": "Jawira Portugal"
+      "name": "Jawira Portugal",
+      "homepage": "https://jawira.com"
     }
   ],
   "support": {
     "issues": "https://github.com/jawira/doctrine-diagram-bundle/issues"
   },
   "require": {
-    "php": "^7.4 || ^8.0",
+    "php": "^8",
     "doctrine/orm": "^2.9",
     "doctrine/persistence": "^2.2 || ^3.0",
     "jawira/db-draw": "^1.2",
     "jawira/plantuml-client": "^1.0",
-    "symfony/console": "^5.0 || ^6.0 || ^7.0",
-    "symfony/filesystem": "^5.0 || ^6.0 || ^7.0",
-    "symfony/framework-bundle": "^5.0 || ^6.0 || ^7.0"
+    "symfony/console": "6.1",
+    "symfony/filesystem": "6.1",
+    "symfony/framework-bundle": "6.1"
   },
   "require-dev": {
     "ergebnis/composer-normalize": "^2.15",

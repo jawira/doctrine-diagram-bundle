@@ -7,13 +7,18 @@
     <service class="\Jawira\DoctrineDiagramBundle\Service\DoctrineDiagram"
              id="jawira.doctrine_diagram.doctrine_diagram">
       <argument type="service" id="doctrine"/>
+        <argument key="$size">%doctrine_diagram.size%</argument>
+        <argument key="$filename">%doctrine_diagram.filename%</argument>
+        <argument key="$extension">%doctrine_diagram.extension%</argument>
+        <argument key="$server">%doctrine_diagram.server%</argument>
+        <argument key="$connection">%doctrine_diagram.connection%</argument>
     </service>
 
     <service class="\Jawira\DoctrineDiagramBundle\Command\DoctrineDiagramCommand"
              id="jawira.doctrine_diagram.doctrine_diagram_command" public="false">
       <argument type="service" id="jawira.doctrine_diagram.doctrine_diagram"/>
-      <argument>jawira:doctrine:diagram</argument>
-      <tag name="console.command" command="jawira:doctrine:diagram"/>
+      <argument>doctrine:diagram</argument>
+      <tag name="console.command" command="doctrine:diagram"/>
     </service>
 
   </services>

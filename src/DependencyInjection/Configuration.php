@@ -2,6 +2,10 @@
 
 namespace Jawira\DoctrineDiagramBundle\DependencyInjection;
 
+use Jawira\DbDraw\DbDraw;
+use Jawira\DoctrineDiagramBundle\Service\DoctrineDiagram;
+use Jawira\PlantUmlClient\Client;
+use Jawira\PlantUmlClient\Format;
 use Symfony\Component\Config\Definition\Builder\ParentNodeDefinitionInterface;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
@@ -17,26 +21,24 @@ class Configuration implements ConfigurationInterface
     /** @var ParentNodeDefinitionInterface $rootNode */
     $rootNode = $buildTree->getRootNode();
     $rootNode->children()
-             ->enumNode('format')
-             ->values(['puml', 'png', 'svg'])
-             ->defaultValue('svg')
-             ->end()
-             ->enumNode('converter')
-             ->values(['server', 'executable'])
-             ->defaultValue('executable')
-             ->end()
-             ->scalarNode('theme')
-             ->end()
-             ->scalarNode('server')
-             ->defaultValue('http://www.plantuml.com/plantuml')
-             ->end()
-             ->scalarNode('executable')
-             ->defaultValue('vendor/bin/plantuml')
-             ->end()
-             ->scalarNode('connection')
-             ->defaultValue('default')
-             ->end()
-             ->end();
+      ->enumNode('size')
+      ->values([DbDraw::MINI, DbDraw::MIDI, DbDraw::MAXI])
+      ->defaultValue(DbDraw::MIDI)
+      ->end()
+      ->scalarNode('filename')
+      ->defaultValue('database')
+      ->end()
+      ->enumNode('extension')
+      ->values([DoctrineDiagram::PUML, Format::PNG, Format::SVG])
+      ->defaultValue(Format::SVG)
+      ->end()
+      ->scalarNode('server')
+      ->defaultValue(Client::SERVER)
+      ->end()
+      ->scalarNode('connection')
+      ->defaultValue('default')
+      ->end()
+      ->end();
 
     return $buildTree;
   }
