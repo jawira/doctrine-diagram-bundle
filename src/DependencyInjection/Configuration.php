@@ -2,6 +2,7 @@
 
 namespace Jawira\DoctrineDiagramBundle\DependencyInjection;
 
+use Doctrine\Persistence\ConnectionRegistry;
 use Jawira\DbDraw\DbDraw;
 use Jawira\DoctrineDiagramBundle\Service\DoctrineDiagram;
 use Jawira\PlantUmlClient\Client;

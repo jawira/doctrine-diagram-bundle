@@ -10,24 +10,39 @@ use RuntimeException;
 use Symfony\Component\Filesystem\Filesystem;
 use function in_array;
 use function Jawira\TheLostFunctions\throw_unless;
+use function str_ends_with;
 
 class DoctrineDiagram
 {
   const PUML = 'puml';
 
   public function __construct(
-    public ConnectionRegistry $doctrine,
-    private string $size,
-    private string $filename,
-    private string $extension,
-    private string $server,
-    private string $connection,
+    private ConnectionRegistry $doctrine,
+    /** This value comes from doctrine_diagram.yaml */
+    private string             $size,
+    /** This value comes from doctrine_diagram.yaml */
+    private string             $filename,
+    /** This value comes from doctrine_diagram.yaml */
+    private string             $extension,
+    /** This value comes from doctrine_diagram.yaml */
+    private string             $server,
+    /** This value comes from doctrine_diagram.yaml */
+    private string             $connection,
   )
   {
   }
 
-  public function generatePuml(string $connectionName, string $size): string
+  /**
+   * Generate a Puml diagram using a Doctrine connection.
+   */
+  public function generatePuml(?string $connectionName = null, ?string $size = null): string
   {
+    // Fallback values from doctrine_diagram.yaml
+    $connectionName ??= $this->connection;
+    $size           ??= $this->size;
+
+
+    // Generate puml diagram
     $connection = $this->doctrine->getConnection($connectionName);
     /** @var \Doctrine\DBAL\Connection $connection */
     $dbDraw = new DbDraw($connection);
@@ -35,11 +50,25 @@ class DoctrineDiagram
     return $dbDraw->generatePuml($size);
   }
 
-  public function convertWithServer(string $puml, string $format, string $server = Client::SERVER): string
+  /**
+   * Convert diagram from Puml to another format using remote PlantUML server.
+   *
+   * @param string $puml Diagram in puml format.
+   * @param string|null $format Convert puml diagram to this format.
+   * @param string|null $server PlantUML server to use to do convertion.
+   * @return string
+   */
+  public function convertWithServer(string $puml, ?string $format = null, ?string $server = null): string
   {
+    // Fallback values from doctrine_diagram.yaml
+    $format ??= $this->extension;
+    $server ??= $this->server;
+
+
     throw_unless(in_array($format, [self::PUML,
       Format::SVG,
       Format::PNG]), new RuntimeException("Invalid format $format"));
+
     if ($format === self::PUML) {
       return $puml;
     }
@@ -47,8 +76,23 @@ class DoctrineDiagram
     return (new Client($server))->generateImage($puml, $format);
   }
 
-  public function dumpDiagram(string $filename, string $content): void
+  /**
+   * Dump image into a file.
+   *
+   * @param string $content The diagram content to be dumped.
+   * @param string|null $filename Target file name.
+   * @param string|null $extension Target file extension.
+   * @return string
+   */
+  public function dumpDiagram(string $content, ?string $filename = null, ?string $extension = null): string
   {
-    (new Filesystem)->dumpFile($filename, $content);
+    // Fallback values from doctrine_diagram.yaml
+    $filename  ??= $this->filename;
+    $extension ??= $this->extension;
+
+    $fullName = str_ends_with($filename, ".$extension") ? $filename : "$filename.$extension";
+    (new Filesystem)->dumpFile($fullName, $content);
+
+    return $fullName;
   }
 }
