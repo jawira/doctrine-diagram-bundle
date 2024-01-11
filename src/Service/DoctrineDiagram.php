@@ -4,8 +4,8 @@ namespace Jawira\DoctrineDiagramBundle\Service;
 
 use Doctrine\Persistence\ConnectionRegistry;
 use Jawira\DbDraw\DbDraw;
+use Jawira\DoctrineDiagramBundle\Constants\Format;
 use Jawira\PlantUmlClient\Client;
-use Jawira\PlantUmlClient\Format;
 use RuntimeException;
 use Symfony\Component\Filesystem\Filesystem;
 use function in_array;
@@ -14,7 +14,6 @@ use function str_ends_with;
 
 class DoctrineDiagram
 {
-  const PUML = 'puml';
 
   public function __construct(
     private ConnectionRegistry $doctrine,
@@ -41,7 +40,6 @@ class DoctrineDiagram
     $connectionName ??= $this->connection;
     $size           ??= $this->size;
 
-
     // Generate puml diagram
     $connection = $this->doctrine->getConnection($connectionName);
     /** @var \Doctrine\DBAL\Connection $connection */
@@ -55,7 +53,7 @@ class DoctrineDiagram
    *
    * @param string $puml Diagram in puml format.
    * @param string|null $format Convert puml diagram to this format.
-   * @param string|null $server PlantUML server to use to do convertion.
+   * @param string|null $server PlantUML server to use to do conversion.
    * @return string
    */
   public function convertWithServer(string $puml, ?string $format = null, ?string $server = null): string
@@ -65,11 +63,12 @@ class DoctrineDiagram
     $server ??= $this->server;
 
 
-    throw_unless(in_array($format, [self::PUML,
-      Format::SVG,
-      Format::PNG]), new RuntimeException("Invalid format $format"));
+    throw_unless(
+      in_array($format, [Format::PUML, Format::SVG, Format::PNG]),
+      new RuntimeException("Invalid format $format")
+    );
 
-    if ($format === self::PUML) {
+    if ($format === Format::PUML) {
       return $puml;
     }
 

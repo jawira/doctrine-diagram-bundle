@@ -2,11 +2,10 @@
 
 namespace Jawira\DoctrineDiagramBundle\DependencyInjection;
 
-use Doctrine\Persistence\ConnectionRegistry;
-use Jawira\DbDraw\DbDraw;
-use Jawira\DoctrineDiagramBundle\Service\DoctrineDiagram;
-use Jawira\PlantUmlClient\Client;
-use Jawira\PlantUmlClient\Format;
+use Jawira\DoctrineDiagramBundle\Constants\Config;
+use Jawira\DoctrineDiagramBundle\Constants\Fallback;
+use Jawira\DoctrineDiagramBundle\Constants\Size;
+use Jawira\DoctrineDiagramBundle\Constants\Format;
 use Symfony\Component\Config\Definition\Builder\ParentNodeDefinitionInterface;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
@@ -22,22 +21,22 @@ class Configuration implements ConfigurationInterface
     /** @var ParentNodeDefinitionInterface $rootNode */
     $rootNode = $buildTree->getRootNode();
     $rootNode->children()
-      ->enumNode('size')
-      ->values([DbDraw::MINI, DbDraw::MIDI, DbDraw::MAXI])
-      ->defaultValue(DbDraw::MIDI)
+      ->enumNode(Config::SIZE)
+      ->values([Size::MINI, Size::MIDI, Size::MAXI])
+      ->defaultValue(Fallback::SIZE)
       ->end()
-      ->scalarNode('filename')
-      ->defaultValue('database')
+      ->scalarNode(Config::FILENAME)
+      ->defaultValue(Fallback::FILENAME)
       ->end()
-      ->enumNode('extension')
-      ->values([DoctrineDiagram::PUML, Format::PNG, Format::SVG])
-      ->defaultValue(Format::SVG)
+      ->enumNode(Config::EXTENSION)
+      ->values([Format::PUML, Format::PNG, Format::SVG])
+      ->defaultValue(Fallback::EXTENSION)
       ->end()
-      ->scalarNode('server')
-      ->defaultValue(Client::SERVER)
+      ->scalarNode(Config::SERVER)
+      ->defaultValue(Fallback::SERVER)
       ->end()
-      ->scalarNode('connection')
-      ->defaultValue('default')
+      ->scalarNode(Config::CONNECTION)
+      ->defaultValue(Fallback::CONNECTION)
       ->end()
       ->end();
 
