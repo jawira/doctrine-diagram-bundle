@@ -2,6 +2,8 @@
 
 namespace Jawira\DoctrineDiagramBundle\DependencyInjection;
 
+use Jawira\DoctrineDiagramBundle\Constants\Config;
+use Jawira\DoctrineDiagramBundle\Constants\Fallback;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\Extension;
@@ -15,12 +17,12 @@ class DoctrineDiagramExtension extends Extension
     $configuration = new Configuration();
     $config        = $this->processConfiguration($configuration, $configs);
 
-    
-    $container->setParameter('doctrine_diagram.size', $config['size']);
-    $container->setParameter('doctrine_diagram.filename', $config['filename']);
-    $container->setParameter('doctrine_diagram.extension', $config['extension']);
-    $container->setParameter('doctrine_diagram.server', $config['server']);
-    $container->setParameter('doctrine_diagram.connection', $config['connection']);
+
+    $container->setParameter('doctrine_diagram.' . Config::SIZE, $config[Config::SIZE]);
+    $container->setParameter('doctrine_diagram.' . Config::FILENAME, $config[Config::FILENAME]);
+    $container->setParameter('doctrine_diagram.' . Config::EXTENSION, $config[Config::EXTENSION]);
+    $container->setParameter('doctrine_diagram.' . Config::SERVER, $config[Config::SERVER]);
+    $container->setParameter('doctrine_diagram.' . Config::CONNECTION, $config[Config::CONNECTION]);
 
     $loader = new XmlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
     $loader->load('services.xml');
