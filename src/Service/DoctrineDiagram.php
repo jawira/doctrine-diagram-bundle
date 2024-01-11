@@ -22,7 +22,7 @@ class DoctrineDiagram
     /** This value comes from doctrine_diagram.yaml */
     private string             $filename,
     /** This value comes from doctrine_diagram.yaml */
-    private string             $extension,
+    private string             $format,
     /** This value comes from doctrine_diagram.yaml */
     private string             $server,
     /** This value comes from doctrine_diagram.yaml */
@@ -59,7 +59,7 @@ class DoctrineDiagram
   public function convertWithServer(string $puml, ?string $format = null, ?string $server = null): string
   {
     // Fallback values from doctrine_diagram.yaml
-    $format ??= $this->extension;
+    $format ??= $this->format;
     $server ??= $this->server;
 
 
@@ -80,16 +80,16 @@ class DoctrineDiagram
    *
    * @param string $content The diagram content to be dumped.
    * @param string|null $filename Target file name.
-   * @param string|null $extension Target file extension.
+   * @param string|null $format Target file extension.
    * @return string
    */
-  public function dumpDiagram(string $content, ?string $filename = null, ?string $extension = null): string
+  public function dumpDiagram(string $content, ?string $filename = null, ?string $format = null): string
   {
     // Fallback values from doctrine_diagram.yaml
-    $filename  ??= $this->filename;
-    $extension ??= $this->extension;
+    $filename ??= $this->filename;
+    $format   ??= $this->format;
 
-    $fullName = str_ends_with($filename, ".$extension") ? $filename : "$filename.$extension";
+    $fullName = str_ends_with($filename, ".$format") ? $filename : "$filename.$format";
     (new Filesystem)->dumpFile($fullName, $content);
 
     return $fullName;
