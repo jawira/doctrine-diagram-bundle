@@ -15,7 +15,7 @@ Please report any bug: <https://github.com/jawira/doctrine-diagram-bundle/issues
 Run this command to generate a database diagram at the root of your project:
 
 ```console
-bin/console jawira:doctrine:diagram
+bin/console doctrine:diagram
 ```
 
 ![diagram](docs/midi.png)

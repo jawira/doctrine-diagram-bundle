@@ -7,6 +7,9 @@ end_of_line              = lf
 insert_final_newline     = true
 ij_visual_guides         = 80, 120
 
+[*.php]
+ij_php_align_assignments = true
+
 [*.{php, yml, yaml, twig, xml}]
 indent_size  = 2
 indent_style = space

@@ -11,6 +11,14 @@ Add this to `composer.json` in your **project** to use the local copy of **Diagr
 
 ```json
 {
-"repositories": [{"type": "path", "url": "../doctrine-diagram-bundle"}]
+  "repositories": [{"type": "path", "url": "../doctrine-diagram-bundle"}]
+}
+```
+
+And change `minimum-stability`:
+
+```json
+{
+  "minimum-stability": "dev"
 }
 ```

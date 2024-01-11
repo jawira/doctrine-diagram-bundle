@@ -69,4 +69,8 @@
       <arg value="--verbose"/>
     </exec>
   </target>
-</project>
+<target name="psalm:run" description="Check code with Psalm">
+    <exec executable="vendor/bin/psalm" checkreturn="true" passthru="true">
+      <arg line="--no-cache --long-progress"/>
+    </exec>
+  </target></project>

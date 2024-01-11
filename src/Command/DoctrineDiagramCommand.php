@@ -19,27 +19,23 @@ use Symfony\Component\Filesystem\Filesystem;
  */
 class DoctrineDiagramCommand extends Command
 {
-  protected DoctrineDiagram $dd;
 
-  public function __construct(DoctrineDiagram $dd, string $name)
+  public function __construct(private DoctrineDiagram $doctrineDiagram, string $name)
   {
-    $this->dd = $dd;
     parent::__construct($name);
   }
 
   protected function configure(): void
   {
-    $connectionName = $this->dd->doctrine->getDefaultConnectionName();
-
-    $this->setDescription('Create database diagram')
-         ->addUsage('--connection=default')
-         ->addUsage('--size=mini')
-         ->addUsage('--filename=my-diagram --extension=png')
-         ->addOption('connection', 'c', InputOption::VALUE_REQUIRED, 'Doctrine connection to use', $connectionName)
-         ->addOption('size', 's', InputOption::VALUE_REQUIRED, 'Diagram size (mini, midi or maxi)', DbDraw::MIDI)
-         ->addOption('filename', 'f', InputOption::VALUE_REQUIRED, 'File name without extension', 'database')
-         ->addOption('extension', 'x', InputOption::VALUE_REQUIRED, 'Diagram format (svg, png or puml)', Format::SVG)
-         ->addOption('server', 'r', InputOption::VALUE_REQUIRED, 'plantuml-server', Client::SERVER);
+    $this->setDescription('Create database diagram.')
+      ->addUsage('--connection=default')
+      ->addUsage('--size=mini')
+      ->addUsage('--filename=my-diagram --extension=png')
+      ->addOption('size', 's', InputOption::VALUE_REQUIRED, 'Diagram size (mini, midi or maxi)')
+      ->addOption('filename', 'f', InputOption::VALUE_REQUIRED, 'Destination file name.')
+      ->addOption('extension', 'x', InputOption::VALUE_REQUIRED, 'Diagram format (svg, png or puml).')
+      ->addOption('connection', 'c', InputOption::VALUE_REQUIRED, 'Doctrine connection to use.')
+      ->addOption('server', 'S', InputOption::VALUE_REQUIRED, 'PlantUML server URL, used to convert puml diagrams to svg and png.');
   }
 
   protected function execute(InputInterface $input, OutputInterface $output): int
@@ -47,18 +43,17 @@ class DoctrineDiagramCommand extends Command
     $io = new SymfonyStyle($input, $output);
     $io->text('<info>Doctrine Diagram Bundle</info> by <info>Jawira Portugal</info>');
 
-    $connectionName = strval($input->getOption('connection'));
-    $size           = strval($input->getOption('size'));
-    $filename       = strval($input->getOption('filename'));
-    $format         = strval($input->getOption('extension'));
-    $server         = strval($input->getOption('server'));
-    $fullName       = "$filename.$format";
+    $connectionName = $input->getOption('connection');
+    $size           = $input->getOption('size');
+    $format         = $input->getOption('extension');
+    $server         = $input->getOption('server');
+    $filename       = $input->getOption('filename');
 
-    $puml    = $this->dd->generatePuml($connectionName, $size);
-    $content = $this->dd->convertWithServer($puml, $format, $server);
-    $this->dd->dumpDiagram($fullName, $content);
+    $puml     = $this->doctrineDiagram->generatePuml($connectionName, $size);
+    $content  = $this->doctrineDiagram->convertWithServer($puml, $format, $server);
+    $fullName = $this->doctrineDiagram->dumpDiagram($content, $filename, $format);
 
-    $io->success($fullName);
+    $io->success("Diagram: $fullName");
 
     return Command::SUCCESS;
   }
