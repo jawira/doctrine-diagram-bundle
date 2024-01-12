@@ -2,20 +2,15 @@
 
 namespace Jawira\DoctrineDiagramBundle\Command;
 
-use Doctrine\Persistence\ConnectionRegistry;
-use Jawira\DbDraw\DbDraw;
 use Jawira\DoctrineDiagramBundle\Constants\Config;
 use Jawira\DoctrineDiagramBundle\Constants\Size;
 use Jawira\DoctrineDiagramBundle\Service\DoctrineDiagram;
-use Jawira\PlantUmlClient\Client;
-use Jawira\PlantUmlClient\Format;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
-use Symfony\Component\Filesystem\Filesystem;
 
 
 /**
@@ -24,7 +19,6 @@ use Symfony\Component\Filesystem\Filesystem;
 #[AsCommand('doctrine:diagram')]
 class DoctrineDiagramCommand extends Command
 {
-
   public function __construct(private DoctrineDiagram $doctrineDiagram)
   {
     parent::__construct();
@@ -58,7 +52,7 @@ class DoctrineDiagramCommand extends Command
     $content  = $this->doctrineDiagram->convertWithServer($puml, $format, $server);
     $fullName = $this->doctrineDiagram->dumpDiagram($content, $filename, $format);
 
-    $io->success("Diagram: $fullName");
+    $io->success("Diagram: {$fullName}");
 
     return Command::SUCCESS;
   }
