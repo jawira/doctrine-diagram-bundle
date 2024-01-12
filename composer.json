@@ -31,6 +31,7 @@
   },
   "require-dev": {
     "ergebnis/composer-normalize": "^2.15",
+    "friendsofphp/php-cs-fixer": "^3.46",
     "jawira/skeleton": "^2.6",
     "phpstan/extension-installer": "^1.1",
     "phpstan/phpstan": "^1.8",
