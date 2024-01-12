@@ -10,16 +10,16 @@ ij_visual_guides         = 80, 120
 [*.php]
 ij_php_align_assignments = true
 
-[*.{php, yml, yaml, twig, xml}]
+[*.{php,yml,yaml,twig,xml}]
 indent_size  = 2
 indent_style = space
 
-[*.{md, markdown}]
+[*.{md,markdown}]
 trim_trailing_whitespace = false
 indent_size              = 2
 indent_style             = space
 
-[{Dockerfile, *.Dockerfile}]
+[{Dockerfile,*.Dockerfile}]
 indent_size  = 4
 indent_style = space
 

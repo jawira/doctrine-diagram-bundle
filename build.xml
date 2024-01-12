@@ -69,8 +69,30 @@
       <arg value="--verbose"/>
     </exec>
   </target>
-<target name="psalm:run" description="Check code with Psalm">
+  <target name="psalm:run" description="Check code with Psalm">
     <exec executable="vendor/bin/psalm" checkreturn="true" passthru="true">
       <arg line="--no-cache --long-progress"/>
     </exec>
-  </target></project>
+  </target>
+
+  <target name="cs:fix" description="Fixes code style in src dir.">
+    <exec executable="vendor/bin/php-cs-fixer" passthru="true" checkreturn="true">
+      <arg value="--ansi"/>
+      <arg value="--no-interaction"/>
+      <arg value="--allow-risky=yes"/>
+      <arg value="fix"/>
+      <arg file="src"/>
+    </exec>
+  </target>
+
+  <target name="cs:check" description="Checks if configured files/directories comply with configured rules.">
+    <exec executable="vendor/bin/php-cs-fixer" passthru="true" checkreturn="true">
+      <arg value="--ansi"/>
+      <arg value="--no-interaction"/>
+      <arg value="--allow-risky=yes"/>
+      <arg value="check"/>
+      <arg file="src"/>
+    </exec>
+  </target>
+
+</project>

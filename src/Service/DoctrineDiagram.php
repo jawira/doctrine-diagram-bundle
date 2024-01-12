@@ -14,7 +14,6 @@ use function str_ends_with;
 
 class DoctrineDiagram
 {
-
   public function __construct(
     private ConnectionRegistry $doctrine,
     /** This value comes from doctrine_diagram.yaml */
@@ -27,8 +26,7 @@ class DoctrineDiagram
     private string             $server,
     /** This value comes from doctrine_diagram.yaml */
     private string             $connection,
-  )
-  {
+  ) {
   }
 
   /**
@@ -65,7 +63,7 @@ class DoctrineDiagram
 
     throw_unless(
       in_array($format, [Format::PUML, Format::SVG, Format::PNG]),
-      new RuntimeException("Invalid format $format")
+      new RuntimeException("Invalid format {$format}")
     );
 
     if ($format === Format::PUML) {
@@ -89,7 +87,7 @@ class DoctrineDiagram
     $filename ??= $this->filename;
     $format   ??= $this->format;
 
-    $fullName = str_ends_with($filename, ".$format") ? $filename : "$filename.$format";
+    $fullName = str_ends_with($filename, ".{$format}") ? $filename : "{$filename}.{$format}";
     (new Filesystem)->dumpFile($fullName, $content);
 
     return $fullName;
