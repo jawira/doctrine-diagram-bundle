@@ -8,5 +8,4 @@ class Fallback
   public const FILENAME = 'database';
   public const FORMAT = Format::SVG;
   public const SERVER = 'http://www.plantuml.com/plantuml';
-  public const CONNECTION = 'default';
 }

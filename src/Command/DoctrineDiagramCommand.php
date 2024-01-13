@@ -37,9 +37,9 @@ class DoctrineDiagramCommand extends Command
       ->addUsage(sprintf('--%s=%s', Config::SIZE, Size::MINI))
       ->addUsage(sprintf('--%s=my-diagram --%s=png', Config::FILENAME, Config::FORMAT))
       ->addUsage(sprintf('--%s=default', Config::CONNECTION))
-      ->addOption(Config::SIZE, null, InputOption::VALUE_REQUIRED, 'Diagram size (mini, midi or maxi).')
       ->addOption(Config::FILENAME, null, InputOption::VALUE_REQUIRED, 'Destination file name.')
       ->addOption(Config::FORMAT, null, InputOption::VALUE_REQUIRED, 'Diagram format (svg, png or puml).')
+      ->addOption(Config::SIZE, null, InputOption::VALUE_REQUIRED, 'Diagram size (mini, midi or maxi).')
       ->addOption(Config::SERVER, null, InputOption::VALUE_REQUIRED, 'PlantUML server URL, used to convert puml diagrams to svg and png.')
       ->addOption(Config::CONNECTION, null, InputOption::VALUE_REQUIRED, 'Doctrine connection to use.');
   }
@@ -49,18 +49,28 @@ class DoctrineDiagramCommand extends Command
     $io = new SymfonyStyle($input, $output);
     $io->text('<info>Doctrine Diagram Bundle</info> by <info>Jawira Portugal</info>');
 
-    $connectionName = $input->getOption(Config::CONNECTION);
-    $size           = $input->getOption(Config::SIZE);
-    $format         = $input->getOption(Config::FORMAT);
-    $server         = $input->getOption(Config::SERVER);
-    $filename       = $input->getOption(Config::FILENAME);
+    $connectionName = $this->stringOrNullOption($input, Config::CONNECTION);
+    $size           = $this->stringOrNullOption($input, Config::SIZE);
+    $format         = $this->stringOrNullOption($input, Config::FORMAT);
+    $server         = $this->stringOrNullOption($input, Config::SERVER);
+    $filename       = $this->stringOrNullOption($input, Config::FILENAME);
 
     $puml     = $this->doctrineDiagram->generatePuml($connectionName, $size);
     $content  = $this->doctrineDiagram->convertWithServer($puml, $format, $server);
     $fullName = $this->doctrineDiagram->dumpDiagram($content, $filename, $format);
 
-    $io->success("Diagram: {$fullName}");
+    $io->success("Diagram: $fullName");
 
     return Command::SUCCESS;
+  }
+
+  /**
+   * Custom function to extract console options and make PHPStan happy!
+   */
+  private function stringOrNullOption(InputInterface $input, string $optionName): ?string
+  {
+    $value = $input->getOption($optionName);
+
+    return is_string($value) ? $value : null;
   }
 }

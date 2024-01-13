@@ -5,7 +5,6 @@ $config = new PhpCsFixer\Config();
 $rules = [
   'braces' => true,
   'declare_strict_types' => true,
-  'explicit_string_variable' => true,
   'heredoc_to_nowdoc' => true,
   'no_binary_string' => true,
   'no_trailing_whitespace' => true,
