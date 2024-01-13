@@ -3,6 +3,7 @@
 namespace Jawira\DoctrineDiagramBundle\Command;
 
 use Jawira\DoctrineDiagramBundle\Constants\Config;
+use Jawira\DoctrineDiagramBundle\Constants\Format;
 use Jawira\DoctrineDiagramBundle\Constants\Size;
 use Jawira\DoctrineDiagramBundle\Service\DoctrineDiagram;
 use Symfony\Component\Console\Attribute\AsCommand;
@@ -27,20 +28,19 @@ class DoctrineDiagramCommand extends Command
   protected function configure(): void
   {
     $this
-      ->setHelp(<<<'HELP'
+      ->setHelp(<<<HELP
         Create a database diagram using a Doctrine ORM connection.
 
         If you are experiencing problems creating a diagram, try using PlantUML (<info>puml</info>) format.
         Unlike <info>png</info> and <info>svg</info> formats, PlantUML doesn't require an internet connection.
         HELP
       )
+      ->addUsage(sprintf('--%s=project.png --%s=png', Config::FILENAME, Config::FORMAT))
       ->addUsage(sprintf('--%s=%s', Config::SIZE, Size::MINI))
-      ->addUsage(sprintf('--%s=my-diagram --%s=png', Config::FILENAME, Config::FORMAT))
-      ->addUsage(sprintf('--%s=default', Config::CONNECTION))
       ->addOption(Config::FILENAME, null, InputOption::VALUE_REQUIRED, 'Destination file name.')
-      ->addOption(Config::FORMAT, null, InputOption::VALUE_REQUIRED, 'Diagram format (svg, png or puml).')
-      ->addOption(Config::SIZE, null, InputOption::VALUE_REQUIRED, 'Diagram size (mini, midi or maxi).')
-      ->addOption(Config::SERVER, null, InputOption::VALUE_REQUIRED, 'PlantUML server URL, used to convert puml diagrams to svg and png.')
+      ->addOption(Config::FORMAT, null, InputOption::VALUE_REQUIRED, sprintf('Diagram format (<info>%s</info>, <info>%s</info> or <info>%s</info>).', Format::SVG, Format::PNG, Format::PUML))
+      ->addOption(Config::SIZE, null, InputOption::VALUE_REQUIRED, sprintf('Diagram size (<info>%s</info>, <info>%s</info> or <info>%s</info>).', Size::MINI, Size::MIDI, Size::MAXI))
+      ->addOption(Config::SERVER, null, InputOption::VALUE_REQUIRED, 'PlantUML server URL, only used to convert puml diagrams to svg and png.')
       ->addOption(Config::CONNECTION, null, InputOption::VALUE_REQUIRED, 'Doctrine connection to use.');
   }
 
