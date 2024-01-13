@@ -21,8 +21,8 @@
   },
   "require": {
     "php": "^8.0",
-    "doctrine/orm": "^2.9",
-    "doctrine/persistence": "^2.2 || ^3.0",
+    "doctrine/doctrine-bundle": "^2.5",
+    "doctrine/orm": "^2.9 || ^3.0",
     "jawira/db-draw": "^1.2",
     "jawira/plantuml-client": "^1.0",
     "symfony/console": "^5.4 || ^6.0 || ^7.0",
@@ -30,12 +30,12 @@
     "symfony/framework-bundle": "^5.4 || ^6.0 || ^7.0"
   },
   "require-dev": {
-    "ergebnis/composer-normalize": "^2.15",
+    "ergebnis/composer-normalize": "^2.31",
     "friendsofphp/php-cs-fixer": "^3.46",
-    "jawira/skeleton": "^2.6",
-    "phpstan/extension-installer": "^1.1",
-    "phpstan/phpstan": "^1.8",
-    "phpstan/phpstan-symfony": "^1.2"
+    "jawira/skeleton": "^2.22",
+    "phpstan/extension-installer": "^1.3.1",
+    "phpstan/phpstan": "^1.10.55",
+    "phpstan/phpstan-symfony": "^1.3.7"
   },
   "autoload": {
     "psr-4": {
