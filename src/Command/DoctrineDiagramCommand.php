@@ -28,7 +28,7 @@ class DoctrineDiagramCommand extends Command
   protected function configure(): void
   {
     $this
-      ->setHelp(<<<HELP
+      ->setHelp(<<<'HELP'
         Create a database diagram using a Doctrine ORM connection.
 
         If you are experiencing problems creating a diagram, try using PlantUML (<info>puml</info>) format.
