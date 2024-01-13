@@ -37,9 +37,9 @@ class DoctrineDiagramCommand extends Command
       ->addUsage(sprintf('--%s=%s', Config::SIZE, Size::MINI))
       ->addUsage(sprintf('--%s=my-diagram --%s=png', Config::FILENAME, Config::FORMAT))
       ->addUsage(sprintf('--%s=default', Config::CONNECTION))
-      ->addOption(Config::SIZE, null, InputOption::VALUE_REQUIRED, 'Diagram size (mini, midi or maxi).')
       ->addOption(Config::FILENAME, null, InputOption::VALUE_REQUIRED, 'Destination file name.')
       ->addOption(Config::FORMAT, null, InputOption::VALUE_REQUIRED, 'Diagram format (svg, png or puml).')
+      ->addOption(Config::SIZE, null, InputOption::VALUE_REQUIRED, 'Diagram size (mini, midi or maxi).')
       ->addOption(Config::SERVER, null, InputOption::VALUE_REQUIRED, 'PlantUML server URL, used to convert puml diagrams to svg and png.')
       ->addOption(Config::CONNECTION, null, InputOption::VALUE_REQUIRED, 'Doctrine connection to use.');
   }

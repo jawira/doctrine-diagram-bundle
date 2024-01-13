@@ -3,7 +3,6 @@
   "description": "\ud83d\udcd0 Symfony Bundle to generate database diagrams",
   "license": "MIT",
   "type": "symfony-bundle",
-  "homepage": "https://github.com/jawira/doctrine-diagram-bundle",
   "keywords": [
     "symfony-bundle",
     "diagram",
@@ -16,6 +15,7 @@
       "homepage": "https://jawira.com"
     }
   ],
+  "homepage": "https://github.com/jawira/doctrine-diagram-bundle",
   "support": {
     "issues": "https://github.com/jawira/doctrine-diagram-bundle/issues"
   },

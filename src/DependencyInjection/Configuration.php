@@ -36,7 +36,7 @@ class Configuration implements ConfigurationInterface
       ->defaultValue(Fallback::SERVER)
       ->end()
       ->scalarNode(Config::CONNECTION)
-      ->defaultValue(Fallback::CONNECTION)
+      ->defaultValue(null)
       ->end()
       ->end();
 

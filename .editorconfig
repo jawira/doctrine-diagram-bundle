@@ -9,6 +9,9 @@ ij_visual_guides         = 80, 120
 
 [*.php]
 ij_php_align_assignments = true
+ij_php_phpdoc_wrap_long_lines = true
+ij_php_align_phpdoc_param_names = true
+ij_php_align_phpdoc_comments = true
 
 [*.{php,yml,yaml,twig,xml}]
 indent_size  = 2
