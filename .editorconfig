@@ -8,13 +8,17 @@ insert_final_newline     = true
 ij_visual_guides         = 80, 120
 
 [*.php]
-ij_php_align_assignments = true
-ij_php_phpdoc_wrap_long_lines = true
+ij_php_align_assignments        = true
+ij_php_phpdoc_wrap_long_lines   = true
 ij_php_align_phpdoc_param_names = true
-ij_php_align_phpdoc_comments = true
+ij_php_align_phpdoc_comments    = true
 
-[*.{php,yml,yaml,twig,xml}]
+[*.{php,twig,xml}]
 indent_size  = 2
+indent_style = space
+
+[*.{yaml,yml}]
+indent_size  = 4
 indent_style = space
 
 [*.{md,markdown}]

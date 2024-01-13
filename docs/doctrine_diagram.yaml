@@ -1,0 +1,6 @@
+doctrine_diagram:
+    size: midi
+    filename: database
+    format: svg
+    connection: ~
+    server: 'http://www.plantuml.com/plantuml'
