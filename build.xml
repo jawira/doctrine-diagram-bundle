@@ -2,8 +2,8 @@
 <project name="Doctrine Diagram Bundle" default="help" phingVersion="3">
   <description>Create diagrams from your doctrine database</description>
 
-  <target name="setup" depends="composer:install"/>
-  <target name="qa" depends="composer:validate,composer:normalize,cs:fix,cs:check,phpstan:analyse"/>
+  <target name="setup" depends="composer:install,mkdocs:build"/>
+  <target name="qa" depends="composer:validate,cs:check,phpstan:analyse,composer:audit"/>
 
   <target name="phpstan:analyse" description="Analyse source code">
     <exec executable="vendor/bin/phpstan" passthru="true" checkreturn="true">
@@ -21,6 +21,14 @@
       <arg value="--prefer-dist"/>
       <arg value="--no-progress"/>
       <arg value="--ansi"/>
+    </composer>
+  </target>
+
+  <target name="composer:audit" description="Checks for security vulnerability advisories for installed packages">
+    <composer command="audit">
+      <arg value="--no-interaction"/>
+      <arg value="--ansi"/>
+      <arg value="--no-dev"/>
     </composer>
   </target>
 
@@ -67,11 +75,6 @@
     <exec executable="mkdocs" passthru="true" checkreturn="true">
       <arg value="gh-deploy"/>
       <arg value="--verbose"/>
-    </exec>
-  </target>
-  <target name="psalm:run" description="Check code with Psalm">
-    <exec executable="vendor/bin/psalm" checkreturn="true" passthru="true">
-      <arg line="--no-cache --long-progress"/>
     </exec>
   </target>
 

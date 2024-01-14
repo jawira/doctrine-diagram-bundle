@@ -1,0 +1,39 @@
+on:
+  workflow_call:
+    inputs:
+      symfony:
+        required: true
+        type: string
+      php:
+        required: true
+        type: string
+
+
+jobs:
+  install-bundle:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 5
+    steps:
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ inputs.php }}
+          extensions: mbstring, intl
+          coverage: xdebug
+          tools: composer:v2
+
+      - name: Install Symfony
+        run: composer create-project symfony/skeleton demo-project ${{ inputs.symfony }}
+
+      - name: Configure composer.json
+        run: |
+          cd ./demo-project
+          composer config --ansi extra.symfony.allow-contrib true
+          composer config --ansi minimum-stability dev
+
+      - name: Install jawira/doctrine-diagram-bundle
+        run: |
+          cd ./demo-project
+          composer require --ansi jawira/doctrine-diagram-bundle:dev-${{ github.event.pull_request.head.ref }}
+          ls -lah ./config/packages

@@ -1,0 +1,44 @@
+name: Quality assurance
+
+on:
+  pull_request:
+  push:
+    branches:
+      - master
+
+jobs:
+  qa:
+    strategy:
+      matrix:
+        php: [ '8.0','8.1','8.2','8.3' ]
+    runs-on: ubuntu-22.04
+    timeout-minutes: 5
+    steps:
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: mbstring, intl
+          coverage: xdebug
+          tools: composer:v2
+
+      - uses: actions/checkout@v3
+
+      - name: Download phing
+        run: mkdir bin && curl -L -C - -s -S -o bin/phing https://github.com/phingofficial/phing/releases/download/3.0.0-rc6/phing-3.0.0-RC6.phar && chmod +x bin/phing
+
+      - name: composer:install
+        run: bin/phing composer:install
+
+      - name: composer:validate
+        run: bin/phing composer:validate
+
+      - name: cs:check
+        run: bin/phing cs:check
+
+      - name: phpstan:analyse
+        run: bin/phing phpstan:analyse
+
+      - name: composer:audit
+        run: bin/phing composer:audit

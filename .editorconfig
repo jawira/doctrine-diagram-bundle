@@ -17,7 +17,7 @@ ij_php_align_phpdoc_comments    = true
 indent_size  = 2
 indent_style = space
 
-[*.{yaml,yml}]
+[docs/*.{yaml,yml}]
 indent_size  = 4
 indent_style = space
 
