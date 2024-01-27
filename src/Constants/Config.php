@@ -9,4 +9,5 @@ class Config
   public const FORMAT = 'format';
   public const SERVER = 'server';
   public const CONNECTION = 'connection';
+  public const THEME = 'theme';
 }

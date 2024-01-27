@@ -1,10 +1,5 @@
 # Dev notes
 
-## Phing targets
-
-![targets](./build.svg)
-
-
 ## Dev project
 
 Add this to `composer.json` in your **project** to use the local copy of **Diagram Bundle**.
@@ -15,10 +10,19 @@ Add this to `composer.json` in your **project** to use the local copy of **Diagr
 }
 ```
 
-And change `minimum-stability`:
+Change `minimum-stability`:
 
 ```json
 {
   "minimum-stability": "dev"
 }
 ```
+
+Set branch name:
+
+```json
+{
+  "jawira/doctrine-diagram-bundle": "dev-theme"
+}
+```
+

@@ -23,6 +23,8 @@ class DoctrineDiagram
     /** This value comes from doctrine_diagram.yaml */
     private string             $server,
     /** This value comes from doctrine_diagram.yaml */
+    private string             $theme,
+    /** This value comes from doctrine_diagram.yaml */
     private ?string            $connection,
   ) {
   }
@@ -35,18 +37,19 @@ class DoctrineDiagram
    *
    * @param ?string $connectionName Doctrine connection name,this value comes from console.
    */
-  public function generatePuml(?string $connectionName = null, ?string $size = null): string
+  public function generatePuml(?string $connectionName = null, ?string $size = null, ?string $theme = null): string
   {
     // Fallback values from doctrine_diagram.yaml
     $connectionName ??= $this->connection;
     $size           ??= $this->size;
+    $theme          ??= $this->theme;
 
     // Generate puml diagram
     $connection = $this->doctrine->getConnection($connectionName);
     /** @var \Doctrine\DBAL\Connection $connection */
     $dbDraw = new DbDraw($connection);
 
-    return $dbDraw->generatePuml($size);
+    return $dbDraw->generatePuml($size, $theme);
   }
 
   /**

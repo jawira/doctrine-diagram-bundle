@@ -2,8 +2,9 @@
 
 **📐 Symfony Bundle to generate database diagrams.**
 
-This project is still a *work in progress*.
-Please report any bug: <https://github.com/jawira/doctrine-diagram-bundle/issues>
+> [!IMPORTANT]
+> This project is still a *work in progress*, so you should expect BC breaks in
+> future releases.<br>Please report any bug.
 
 [![Latest Stable Version](http://poser.pugx.org/jawira/doctrine-diagram-bundle/v)](https://packagist.org/packages/jawira/doctrine-diagram-bundle)
 [![Total Downloads](http://poser.pugx.org/jawira/doctrine-diagram-bundle/downloads)](https://packagist.org/packages/jawira/doctrine-diagram-bundle)
@@ -28,7 +29,7 @@ Make sure Composer is installed globally, as explained in the
 [installation chapter](https://getcomposer.org/doc/00-intro.md)
 of the Composer documentation.
 
-Open a command console, enter your project directory and execute:
+Open a command console, enter your project directory and install with Composer:
 
 ```console
 composer require jawira/doctrine-diagram-bundle
@@ -77,7 +78,8 @@ doctrine_diagram:
 
 ## Contributing
 
-If you liked this project, ⭐ [star it on GitHub](https://github.com/jawira/doctrine-diagram-bundle).
+If you liked this project,
+⭐ [star it on GitHub](https://github.com/jawira/doctrine-diagram-bundle).
 
 ## License
 
