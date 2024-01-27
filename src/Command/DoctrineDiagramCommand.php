@@ -41,7 +41,8 @@ class DoctrineDiagramCommand extends Command
       ->addOption(Config::FORMAT, null, InputOption::VALUE_REQUIRED, sprintf('Diagram format (<info>%s</info>, <info>%s</info> or <info>%s</info>).', Format::SVG, Format::PNG, Format::PUML))
       ->addOption(Config::SIZE, null, InputOption::VALUE_REQUIRED, sprintf('Diagram size (<info>%s</info>, <info>%s</info> or <info>%s</info>).', Size::MINI, Size::MIDI, Size::MAXI))
       ->addOption(Config::SERVER, null, InputOption::VALUE_REQUIRED, 'PlantUML server URL, only used to convert puml diagrams to svg and png.')
-      ->addOption(Config::CONNECTION, null, InputOption::VALUE_REQUIRED, 'Doctrine connection to use.');
+      ->addOption(Config::CONNECTION, null, InputOption::VALUE_REQUIRED, 'Doctrine connection to use.')
+      ->addOption(Config::THEME, null, InputOption::VALUE_REQUIRED, 'Change diagram colors and style.');
   }
 
   protected function execute(InputInterface $input, OutputInterface $output): int
@@ -54,8 +55,9 @@ class DoctrineDiagramCommand extends Command
     $format         = $this->stringOrNullOption($input, Config::FORMAT);
     $server         = $this->stringOrNullOption($input, Config::SERVER);
     $filename       = $this->stringOrNullOption($input, Config::FILENAME);
+    $theme          = $this->stringOrNullOption($input, Config::THEME);
 
-    $puml     = $this->doctrineDiagram->generatePuml($connectionName, $size);
+    $puml     = $this->doctrineDiagram->generatePuml($connectionName, $size, $theme);
     $content  = $this->doctrineDiagram->convertWithServer($puml, $format, $server);
     $fullName = $this->doctrineDiagram->dumpDiagram($content, $filename, $format);
 

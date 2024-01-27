@@ -2,8 +2,11 @@
 <project name="Doctrine Diagram Bundle" default="help" phingVersion="3">
   <description>Create diagrams from your doctrine database</description>
 
-  <target name="setup" depends="composer:install,mkdocs:build"/>
-  <target name="qa" depends="composer:validate,cs:check,phpstan:analyse,composer:audit"/>
+
+  <target name="setup" depends="composer:install,docs"/>
+  <target name="qa" depends="composer:normalize,composer:validate,cs:fix,cs:check,phpstan:analyse,composer:audit"/>
+  <target name="docs" depends="plantuml:convert,mkdocs:build"/>
+
 
   <target name="phpstan:analyse" description="Analyse source code">
     <exec executable="vendor/bin/phpstan" passthru="true" checkreturn="true">
@@ -48,13 +51,13 @@
   </target>
 
   <target name="help">
-    <uptodate property="uptodate.visualizer" srcfile="build.xml" targetfile="docs/build.svg"/>
+    <uptodate property="uptodate.visualizer" srcfile="build.xml" targetfile="build.svg"/>
     <runtarget target="visualizer"/>
-    <open path="docs/build.svg"/>
+    <open path="build.svg"/>
   </target>
 
   <target name="visualizer" unless="uptodate.visualizer" description="Create buildfile map">
-    <visualizer format="svg" destination="docs"/>
+    <visualizer format="svg"/>
   </target>
 
   <target name="mkdocs:build" description="Build documentation">
@@ -75,6 +78,17 @@
     <exec executable="mkdocs" passthru="true" checkreturn="true">
       <arg value="gh-deploy"/>
       <arg value="--verbose"/>
+    </exec>
+  </target>
+
+  <target name="plantuml:convert" description="Convert puml to png">
+    <exec executable="vendor/bin/plantuml" checkreturn="true" passthru="true">
+      <arg value="-progress"/>
+      <arg value="-tpng"/>
+      <arg value="-nometadata"/>
+      <arg value="-output"/>
+      <arg path="docs/images"/>
+      <arg file="docs/images/*.puml"/>
     </exec>
   </target>
 
