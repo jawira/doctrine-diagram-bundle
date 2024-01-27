@@ -31,6 +31,11 @@ class DoctrineDiagramCommand extends Command
       ->setHelp(<<<'HELP'
         Create a database diagram using a Doctrine ORM connection.
 
+        <comment>THEMES</comment>
+        Well-known themes: <info>amiga</info>, <info>blueprint</info>, <info>cerulean</info>, <info>crt-amber</info>, <info>crt-green</info>, <info>cyborg</info>, <info>lightgray</info>, <info>plain</info>, <info>silver</info>, <info>vibrant</info>.
+        Please note that the availability of themes may vary depending on the specific version of PlantUML being utilized to render the diagrams.
+
+        <comment>FORMATS</comment>
         If you are experiencing problems creating a diagram, try using PlantUML (<info>puml</info>) format.
         Unlike <info>png</info> and <info>svg</info> formats, PlantUML doesn't require an internet connection.
         HELP

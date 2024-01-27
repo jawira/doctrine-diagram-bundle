@@ -70,7 +70,7 @@ paste the following content:
 # config/packages/doctrine_diagram.yaml
 doctrine_diagram:
     size: midi
-    filename: database
+    filename: database.svg
     format: svg
 ```
 
