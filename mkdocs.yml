@@ -1,8 +1,11 @@
-site_name: !ENV [ SITE_NAME, 'Doctrine Diagram Bundle' ]
-theme: readthedocs
+site_name: !ENV [ SITE_NAME, 'Doctrine Diagram Bundle - dev' ]
+theme: material
 copyright: © 2024 Jawira Portugal
 site_author: Jawira Portugal
 strict: true
 use_directory_urls: false
 nav:
-    - 'dev-notes.md'
+    - 'index.md'
+    - 'installing.md'
+    - 'configuration.md'
+    - 'themes.md'
