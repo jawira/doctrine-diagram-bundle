@@ -52,8 +52,8 @@ class DoctrineDiagramCommand extends Command
 
   protected function execute(InputInterface $input, OutputInterface $output): int
   {
-    $io = new SymfonyStyle($input, $output);
-    $io->text('<info>Doctrine Diagram Bundle</info> by <info>Jawira Portugal</info>');
+    $errorStyle = (new SymfonyStyle($input, $output))->getErrorStyle();
+    $errorStyle->text('<info>Doctrine Diagram Bundle</info> by <info>Jawira Portugal</info>');
 
     $connectionName = $this->stringOrNullOption($input, Config::CONNECTION);
     $size           = $this->stringOrNullOption($input, Config::SIZE);
@@ -66,7 +66,7 @@ class DoctrineDiagramCommand extends Command
     $content  = $this->doctrineDiagram->convertWithServer($puml, $format, $server);
     $fullName = $this->doctrineDiagram->dumpDiagram($content, $filename, $format);
 
-    $io->success("Diagram: $fullName");
+    $errorStyle->success("Diagram: $fullName");
 
     return Command::SUCCESS;
   }

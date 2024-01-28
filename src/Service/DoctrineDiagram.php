@@ -8,12 +8,12 @@ use Jawira\DoctrineDiagramBundle\Constants\Format;
 use Jawira\PlantUmlClient\Client;
 use RuntimeException;
 use Symfony\Component\Filesystem\Filesystem;
-use function str_ends_with;
 
 class DoctrineDiagram
 {
   public function __construct(
     private ConnectionRegistry $doctrine,
+    private Toolbox            $toolbox,
     /** This value comes from doctrine_diagram.yaml */
     private string             $size,
     /** This value comes from doctrine_diagram.yaml */
@@ -89,9 +89,11 @@ class DoctrineDiagram
     $filename ??= $this->filename;
     $format   ??= $this->format;
 
-    $fullName = str_ends_with($filename, ".$format") ? $filename : "$filename.$format";
-    (new Filesystem)->dumpFile($fullName, $content);
+    if (!$this->toolbox->isWrapper($filename)) {
+      $filename = $this->toolbox->appendExtension($filename, $format);
+    }
+    file_put_contents($filename, $content);
 
-    return $fullName;
+    return $filename;
   }
 }
