@@ -21,7 +21,7 @@ bin/console doctrine:diagram
 
 Then open `database.svg` located at the root of your project:
 
-![diagram](docs/midi.png)
+![diagram](docs/images/midi.png)
 
 ## Contributing
 
