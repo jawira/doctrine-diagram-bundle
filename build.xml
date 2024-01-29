@@ -3,9 +3,9 @@
   <description>Create diagrams from your doctrine database</description>
 
 
-  <target name="setup" depends="composer:install,docs"/>
+  <target name="setup" depends="composer:install"/>
   <target name="qa" depends="composer:normalize,composer:validate,cs:fix,cs:check,phpstan:analyse,composer:audit"/>
-  <target name="docs" depends="plantuml:convert,mkdocs:build"/>
+  <target name="docs" depends="plantuml:convert,mkdocs:serve"/>
 
 
   <target name="phpstan:analyse" description="Analyse source code">
@@ -60,15 +60,9 @@
     <visualizer format="svg"/>
   </target>
 
-  <target name="mkdocs:build" description="Build documentation">
-    <exec executable="mkdocs" passthru="true" checkreturn="true">
-      <arg value="build"/>
-      <arg value="--verbose"/>
-    </exec>
-  </target>
-
   <target name="mkdocs:serve" description="Run local server">
     <exec executable="mkdocs" passthru="true" checkreturn="true">
+      <env key="SITE_NAME" value="'Doctrine Diagram Bundle phing'"/>
       <arg value="serve"/>
       <arg value="--verbose"/>
     </exec>
