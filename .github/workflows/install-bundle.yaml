@@ -7,6 +7,9 @@ on:
       php:
         required: true
         type: string
+      composer-flag:
+        required: true
+        type: string
 
 
 jobs:
@@ -36,4 +39,5 @@ jobs:
         run: |
           cd ./demo-project
           composer require --ansi jawira/doctrine-diagram-bundle:dev-${{ github.event.pull_request.head.ref }}
-          ls -lah ./config/packages
+          rm -rf vendor composer.lock
+          composer update --ansi --no-interaction --prefer-dist --no-scripts ${{ inputs.composer-flag }}
