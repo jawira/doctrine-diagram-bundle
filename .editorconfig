@@ -21,6 +21,9 @@ indent_style = space
 indent_size  = 4
 indent_style = space
 
+[.github/**/*.{yaml,yml}]
+indent_size  = 2
+
 [*.{md,markdown}]
 trim_trailing_whitespace = false
 indent_size              = 2
