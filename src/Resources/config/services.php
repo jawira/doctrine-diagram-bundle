@@ -20,7 +20,8 @@ return function (ContainerConfigurator $container): void {
     ->arg('$format', param('doctrine_diagram.' . Config::FORMAT))
     ->arg('$server', param('doctrine_diagram.' . Config::SERVER))
     ->arg('$theme', param('doctrine_diagram.' . Config::THEME))
-    ->arg('$connection', param('doctrine_diagram.' . Config::CONNECTION));
+    ->arg('$connection', param('doctrine_diagram.' . Config::CONNECTION))
+    ->arg('$exclude', param('doctrine_diagram.' . Config::EXCLUDE));
 
   $services->set('jawira.doctrine_diagram.command', DoctrineDiagramCommand::class)
     ->arg('$doctrineDiagram', service('jawira.doctrine_diagram.service'))

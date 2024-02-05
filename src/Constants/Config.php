@@ -10,4 +10,5 @@ class Config
   public const SERVER = 'server';
   public const CONNECTION = 'connection';
   public const THEME = 'theme';
+  public const EXCLUDE = 'exclude';
 }

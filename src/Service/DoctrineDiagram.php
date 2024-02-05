@@ -2,6 +2,7 @@
 
 namespace Jawira\DoctrineDiagramBundle\Service;
 
+use Doctrine\DBAL\Connection;
 use Doctrine\Persistence\ConnectionRegistry;
 use Jawira\DbDraw\DbDraw;
 use Jawira\DoctrineDiagramBundle\Constants\Format;
@@ -26,7 +27,10 @@ class DoctrineDiagram
     private string             $theme,
     /** This value comes from doctrine_diagram.yaml */
     private ?string            $connection,
-  ) {
+    /** This value comes from doctrine_diagram.yaml */
+    private array              $exclude,
+  )
+  {
   }
 
   /**
@@ -37,19 +41,20 @@ class DoctrineDiagram
    *
    * @param ?string $connectionName Doctrine connection name,this value comes from console.
    */
-  public function generatePuml(?string $connectionName = null, ?string $size = null, ?string $theme = null): string
+  public function generatePuml(?string $connectionName = null, ?string $size = null, ?string $theme = null, ?array $exclude = null): string
   {
     // Fallback values from doctrine_diagram.yaml
     $connectionName ??= $this->connection;
     $size           ??= $this->size;
     $theme          ??= $this->theme;
+    $exclude        ??= $this->exclude;
 
     // Generate puml diagram
     $connection = $this->doctrine->getConnection($connectionName);
-    /** @var \Doctrine\DBAL\Connection $connection */
+    assert($connection instanceof Connection);
     $dbDraw = new DbDraw($connection);
 
-    return $dbDraw->generatePuml($size, $theme);
+    return $dbDraw->generatePuml($size, $theme, $exclude);
   }
 
   /**
