@@ -27,10 +27,13 @@ class DoctrineDiagram
     private string             $theme,
     /** This value comes from doctrine_diagram.yaml */
     private ?string            $connection,
-    /** This value comes from doctrine_diagram.yaml */
+    /**
+     * This value comes from doctrine_diagram.yaml
+     *
+     * @var string[]
+     */
     private array              $exclude,
-  )
-  {
+  ) {
   }
 
   /**
@@ -39,7 +42,7 @@ class DoctrineDiagram
    * The arguments of this method come from the console. If no values are provided, then the values from the config
    * file are used as a fallback.
    *
-   * @param ?string $connectionName Doctrine connection name,this value comes from console.
+   * @param string[] $exclude
    */
   public function generatePuml(?string $connectionName = null, ?string $size = null, ?string $theme = null, ?array $exclude = null): string
   {
