@@ -2,6 +2,9 @@
 
 namespace Jawira\DoctrineDiagramBundle\Constants;
 
+/**
+ * @internal
+ */
 class Config
 {
   public const SIZE = 'size';
@@ -10,4 +13,5 @@ class Config
   public const SERVER = 'server';
   public const CONNECTION = 'connection';
   public const THEME = 'theme';
+  public const EXCLUDE = 'exclude';
 }

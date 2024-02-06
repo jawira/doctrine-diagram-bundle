@@ -22,6 +22,7 @@ class DoctrineDiagramExtension extends Extension
     $container->setParameter('doctrine_diagram.' . Config::SERVER, $config[Config::SERVER]);
     $container->setParameter('doctrine_diagram.' . Config::THEME, $config[Config::THEME]);
     $container->setParameter('doctrine_diagram.' . Config::CONNECTION, $config[Config::CONNECTION]);
+    $container->setParameter('doctrine_diagram.' . Config::EXCLUDE, $config[Config::EXCLUDE]);
 
     $loader = new PhpFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
     $loader->load('services.php');

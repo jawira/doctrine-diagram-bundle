@@ -47,7 +47,8 @@ class DoctrineDiagramCommand extends Command
       ->addOption(Config::SIZE, null, InputOption::VALUE_REQUIRED, sprintf('Diagram size (<info>%s</info>, <info>%s</info> or <info>%s</info>).', Size::MINI, Size::MIDI, Size::MAXI))
       ->addOption(Config::SERVER, null, InputOption::VALUE_REQUIRED, 'PlantUML server URL, only used to convert puml diagrams to svg and png.')
       ->addOption(Config::CONNECTION, null, InputOption::VALUE_REQUIRED, 'Doctrine connection to use.')
-      ->addOption(Config::THEME, null, InputOption::VALUE_REQUIRED, 'Change diagram colors and style.');
+      ->addOption(Config::THEME, null, InputOption::VALUE_REQUIRED, 'Change diagram colors and style.')
+      ->addOption(Config::EXCLUDE, null, InputOption::VALUE_REQUIRED, 'Comma separated list of tables to exclude from diagram.');
   }
 
   protected function execute(InputInterface $input, OutputInterface $output): int
@@ -61,8 +62,11 @@ class DoctrineDiagramCommand extends Command
     $server         = $this->stringOrNullOption($input, Config::SERVER);
     $filename       = $this->stringOrNullOption($input, Config::FILENAME);
     $theme          = $this->stringOrNullOption($input, Config::THEME);
+    $exclude        = $this->stringOrNullOption($input, Config::EXCLUDE);
 
-    $puml     = $this->doctrineDiagram->generatePuml($connectionName, $size, $theme);
+    $excludeArray = is_string($exclude) ? explode(',', $exclude) : null;
+
+    $puml     = $this->doctrineDiagram->generatePuml($connectionName, $size, $theme, $excludeArray);
     $content  = $this->doctrineDiagram->convertWithServer($puml, $format, $server);
     $fullName = $this->doctrineDiagram->dumpDiagram($content, $filename, $format);
 

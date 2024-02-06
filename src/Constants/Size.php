@@ -2,6 +2,9 @@
 
 namespace Jawira\DoctrineDiagramBundle\Constants;
 
+/**
+ * @internal
+ */
 class Size
 {
   public const MINI = 'mini';

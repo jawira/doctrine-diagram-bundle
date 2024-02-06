@@ -18,8 +18,8 @@ class Configuration implements ConfigurationInterface
   public function getConfigTreeBuilder(): TreeBuilder
   {
     $buildTree = (new TreeBuilder('doctrine_diagram'));
-    /** @var ParentNodeDefinitionInterface $rootNode */
-    $rootNode = $buildTree->getRootNode();
+    $rootNode  = $buildTree->getRootNode();
+    assert($rootNode instanceof ParentNodeDefinitionInterface);
     $rootNode->children()
       ->enumNode(Config::SIZE)
       ->values([Size::MINI, Size::MIDI, Size::MAXI])
@@ -40,6 +40,9 @@ class Configuration implements ConfigurationInterface
       ->end()
       ->scalarNode(Config::CONNECTION)
       ->defaultValue(null)
+      ->end()
+      ->arrayNode(Config::EXCLUDE)
+      ->scalarPrototype()->end()
       ->end()
       ->end();
 
