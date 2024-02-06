@@ -10,28 +10,21 @@ use Jawira\PlantUmlClient\Client;
 use RuntimeException;
 use Symfony\Component\Filesystem\Filesystem;
 
+/**
+ * Main service to generate diagrams.
+ */
 class DoctrineDiagram
 {
   public function __construct(
     private ConnectionRegistry $doctrine,
     private Toolbox            $toolbox,
-    /** This value comes from doctrine_diagram.yaml */
     private string             $size,
-    /** This value comes from doctrine_diagram.yaml */
     private string             $filename,
-    /** This value comes from doctrine_diagram.yaml */
     private string             $format,
-    /** This value comes from doctrine_diagram.yaml */
     private string             $server,
-    /** This value comes from doctrine_diagram.yaml */
     private string             $theme,
-    /** This value comes from doctrine_diagram.yaml */
     private ?string            $connection,
-    /**
-     * This value comes from doctrine_diagram.yaml
-     *
-     * @var string[]
-     */
+    /** @var string[] */
     private array              $exclude,
   ) {
   }
@@ -42,7 +35,7 @@ class DoctrineDiagram
    * The arguments of this method come from the console. If no values are provided, then the values from the config
    * file are used as a fallback.
    *
-   * @param string[] $exclude
+   * @param null|string[] $exclude
    */
   public function generatePuml(?string $connectionName = null, ?string $size = null, ?string $theme = null, ?array $exclude = null): string
   {
@@ -74,7 +67,7 @@ class DoctrineDiagram
     $format ??= $this->format;
     $server ??= $this->server;
 
-    Format::isValid($format) ?: throw new RuntimeException("Invalid format {$format}.");
+    $this->toolbox->isValidFormat($format) ?: throw new RuntimeException("Invalid format {$format}.");
 
     if ($format === Format::PUML) {
       return $puml;

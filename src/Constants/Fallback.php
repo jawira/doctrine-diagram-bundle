@@ -2,6 +2,9 @@
 
 namespace Jawira\DoctrineDiagramBundle\Constants;
 
+/**
+ * @internal
+ */
 class Fallback
 {
   public const SIZE = Size::MIDI;

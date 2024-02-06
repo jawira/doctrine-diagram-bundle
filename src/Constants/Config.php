@@ -2,6 +2,9 @@
 
 namespace Jawira\DoctrineDiagramBundle\Constants;
 
+/**
+ * @internal
+ */
 class Config
 {
   public const SIZE = 'size';

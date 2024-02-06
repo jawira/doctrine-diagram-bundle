@@ -2,6 +2,9 @@
 
 namespace Jawira\DoctrineDiagramBundle\Service;
 
+use Jawira\DoctrineDiagramBundle\Constants\Format;
+use ReflectionClass;
+
 /**
  * @internal
  */
@@ -26,5 +29,14 @@ class Toolbox
   public function isWrapper(string $string): bool
   {
     return boolval(preg_match('#^[a-zA-Z0-9.+-]+://#', $string));
+  }
+
+  /**
+   * Tells you if provided format is valid.
+   */
+  public function isValidFormat(string $format): bool
+  {
+    $reflectionClass = new ReflectionClass(Format::class);
+    return in_array($format, $reflectionClass->getConstants(), true);
   }
 }
