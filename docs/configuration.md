@@ -7,16 +7,20 @@ You have to ways to configure _Doctrine Diagram Bundle_.
 
 ### Configuration file
 
-Configuation file is located at `config/packages/doctrine_diagram.yaml`:
+Configuration file is located at `config/packages/doctrine_diagram.yaml`, this
+is a full configuration example:
 
 ```yaml
 doctrine_diagram:
-    size: midi
-    filename: database
-    format: svg
-    server: 'http://www.plantuml.com/plantuml'
-    theme: _none_
-    connection: null
+  size: midi
+  filename: database
+  format: svg
+  server: 'http://www.plantuml.com/plantuml'
+  theme: _none_
+  connection: ~
+  exclude:
+    - table1
+    - table2
 ```
 
 ### Command's options
@@ -37,4 +41,5 @@ Options:
   --server=SERVER          PlantUML server URL, only used to convert puml diagrams to svg and png.
   --connection=CONNECTION  Doctrine connection to use.
   --theme=THEME            Change diagram colors and style.
+  --exclude=EXCLUDE        Comma separated list of tables to exclude from diagram.
 ```

@@ -26,3 +26,18 @@ Set branch name:
 }
 ```
 
+## Documentation
+
+In order to build documentation material theme is required
+
+```console
+pip install mkdocs-material
+phing mkdocs:serve
+```
+
+## Check config
+
+```console
+bin/console debug:config doctrine_diagram
+bin/console config:dump-reference doctrine_diagram
+```
