@@ -26,7 +26,8 @@ class DoctrineDiagram
     private ?string            $connection,
     /** @var string[] */
     private array              $exclude,
-  ) {
+  )
+  {
   }
 
   /**
@@ -35,7 +36,7 @@ class DoctrineDiagram
    * The arguments of this method come from the console. If no values are provided, then the values from the config
    * file are used as a fallback.
    *
-   * @param null|string[] $exclude
+   * @param null|string[] $exclude List of tables to exclude from diagram.
    */
   public function generatePuml(?string $connectionName = null, ?string $size = null, ?string $theme = null, ?array $exclude = null): string
   {
@@ -47,7 +48,7 @@ class DoctrineDiagram
 
     // Generate puml diagram
     $connection = $this->doctrine->getConnection($connectionName);
-    assert($connection instanceof Connection);
+    ($connection instanceof Connection) or throw new RuntimeException('Cannot get required Connection');
     $dbDraw = new DbDraw($connection);
 
     return $dbDraw->generatePuml($size, $theme, $exclude);
@@ -67,7 +68,7 @@ class DoctrineDiagram
     $format ??= $this->format;
     $server ??= $this->server;
 
-    $this->toolbox->isValidFormat($format) ?: throw new RuntimeException("Invalid format {$format}.");
+    $this->toolbox->isValidFormat($format) or throw new RuntimeException("Invalid format {$format}.");
 
     if ($format === Format::PUML) {
       return $puml;

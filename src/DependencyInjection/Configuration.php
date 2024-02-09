@@ -19,7 +19,8 @@ class Configuration implements ConfigurationInterface
   {
     $buildTree = (new TreeBuilder('doctrine_diagram'));
     $rootNode  = $buildTree->getRootNode();
-    assert($rootNode instanceof ParentNodeDefinitionInterface);
+    ($rootNode instanceof ParentNodeDefinitionInterface) or throw new \RuntimeException('Invalid root node when configuring bundle.');
+
     $rootNode->children()
       ->enumNode(Config::SIZE)
       ->values([Size::MINI, Size::MIDI, Size::MAXI])
