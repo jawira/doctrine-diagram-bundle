@@ -38,6 +38,9 @@
     "phpstan/phpstan": "^1.10.55",
     "phpstan/phpstan-symfony": "^1.3.7"
   },
+  "suggest": {
+    "jawira/plantuml": "Install PlantUML executable with Composer."
+  },
   "autoload": {
     "psr-4": {
       "Jawira\\DoctrineDiagramBundle\\": "src/"
