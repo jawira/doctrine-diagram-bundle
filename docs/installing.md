@@ -67,22 +67,44 @@ formats.
 
 First, ensure you have PlantUML installed on your system.
 Then run following command to create a local PlantUML server available on port
-8081:
-
+8080:
 
 ```console
-plantuml -picoserver:8081
+plantuml -picoserver:8080
 ```
 
-Once executed, your server becomes accessible through <http://localhost:8081>.
+Once executed, your server becomes accessible through <http://localhost:8080>.
 Additionally, declare this new server in config/packages/doctrine_diagram.yaml
 as follows:
 
 ```yaml
 doctrine_diagram:
-    # ...
-    server: http://localhost:8081/plantuml
+  # ...
+  server: http://localhost:8080/plantuml
 ```
 
-For more information,
+For more information
 visit: [PlantUML Picoweb Documentation](https://plantuml.com/picoweb)
+
+### PlantUML server with Docker
+
+An alternative method to set up a PlantUML server involves leveraging Docker.
+
+Utilize Docker to establish a PlantUML server using the following command. This
+command ensures that the server is accessible via port 8080.
+
+```console
+docker run -d -p 8080:8080 plantuml/plantuml-server:jetty
+```
+
+Notice that, when using Docker, `/plantuml` path is not used
+in `doctrine_diagram.yaml`.
+
+```yaml
+doctrine_diagram:
+  # ...
+  server: http://localhost:8080
+```
+
+For further details, refer
+to: [PlantUML in Docker Hub](https://hub.docker.com/r/plantuml/plantuml-server)
