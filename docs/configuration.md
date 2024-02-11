@@ -5,23 +5,9 @@ You have to ways to configure _Doctrine Diagram Bundle_.
 1. Using configuration file
 2. Using command's options
 
-### Configuration file
+!!! Note
 
-Configuration file is located at `config/packages/doctrine_diagram.yaml`, this
-is a full configuration example:
-
-```yaml
-doctrine_diagram:
-  size: midi
-  filename: database
-  format: svg
-  server: 'http://www.plantuml.com/plantuml'
-  theme: _none_
-  connection: ~
-  exclude:
-    - table1
-    - table2
-```
+    Command line configuration will always have precedence over configuration file.
 
 ### Command's options
 
@@ -42,4 +28,22 @@ Options:
   --connection=CONNECTION  Doctrine connection to use.
   --theme=THEME            Change diagram colors and style.
   --exclude=EXCLUDE        Comma separated list of tables to exclude from diagram.
+```
+
+### Configuration file
+
+Configuration file is located at `config/packages/doctrine_diagram.yaml`, this
+is a full configuration example:
+
+```yaml
+doctrine_diagram:
+  size: midi
+  filename: database
+  format: svg
+  server: 'http://www.plantuml.com/plantuml'
+  theme: _none_
+  connection: ~
+  exclude:
+    - table1
+    - table2
 ```

@@ -1,12 +1,14 @@
 ## Create an ER diagram
 
-To generate an ER diagram from your current Doctrine database, use the following command:
+To generate an ER diagram from your current Doctrine database, use the following
+command:
 
 ```console
 bin/console doctrine:diagram
 ```
 
-If you are using the default configuration, a file named `database.png` will be created at the root of your project.
+If you are using the default configuration, a file named `database.png` will be
+created at the root of your project.
 
 ## Change the diagram format
 
@@ -26,7 +28,8 @@ doctrine_diagram:
     format: png
 ```
 
-If you encounter difficulties generating your diagram, use the puml format as it doesn't require a PlantUML server to function.
+If you encounter difficulties generating your diagram, use the puml format as it
+doesn't require a PlantUML server to function.
 
 ## Set diagram size
 
@@ -52,7 +55,9 @@ doctrine_diagram:
 
 ## Specify ER diagram name
 
-By default, the diagram filename is `database`, and the file extension is added automatically based on the chosen format. Modify the filename on-the-fly with the `--filename` option:
+By default, the diagram filename is `database`, and the file extension is added
+automatically based on the chosen format. Modify the filename on-the-fly with
+the `--filename` option:
 
 ```console
 bin/console doctrine:diagram --filename=my-database
@@ -66,9 +71,14 @@ doctrine_diagram:
     filename: my-database
 ```
 
+!!! TIP
+
+    You don't need to explicitly set filename extension, it's autmatically added according to selected diagram format.
+
 ## Output redirection
 
-To redirect the diagram output to a file or another program, set `php://output` as the filename. For example:
+To redirect the diagram output to a file or another program, set `php://output`
+as the filename. For example:
 
 ```console 
 bin/console doctrine:diagram --filename="php://stdout" --format=puml | tee example.puml
@@ -114,7 +124,8 @@ doctrine_diagram:
 
 ## Specify the Doctrine connection
 
-If a connection is not specified, the `default` connection is used. Use the `--connection` option to declare an alternative connection:
+If a connection is not specified, the `default` connection is used. Use
+the `--connection` option to declare an alternative connection:
 
 ```console
 bin/console doctrine:diagram --connection=default
