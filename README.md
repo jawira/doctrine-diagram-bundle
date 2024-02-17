@@ -13,7 +13,7 @@
 
 ## Usage
 
-Run this command to generate a database diagram:
+Run this command to generate a _ER_ diagram:
 
 ```console
 bin/console doctrine:diagram
@@ -22,6 +22,10 @@ bin/console doctrine:diagram
 Then open `database.svg` located at the root of your project:
 
 ![diagram](docs/images/midi.png)
+
+## Documentation
+
+<https://jawira.github.io/doctrine-diagram-bundle/>
 
 ## Contributing
 
