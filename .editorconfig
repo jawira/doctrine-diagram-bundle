@@ -39,3 +39,6 @@ ij_editorconfig_align_group_field_declarations     = true
 ij_editorconfig_spaces_around_assignment_operators = true
 ij_editorconfig_space_before_comma                 = false
 ij_editorconfig_space_after_comma                  = true
+
+[.gitattributes]
+indent_style = tab
