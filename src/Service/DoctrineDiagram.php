@@ -7,6 +7,7 @@ use Doctrine\Persistence\ConnectionRegistry;
 use Jawira\DbDraw\DbDraw;
 use Jawira\DoctrineDiagramBundle\Constants\Format;
 use Jawira\PlantUmlClient\Client;
+use Jawira\PlantUmlToImage\PlantUml;
 use RuntimeException;
 use Symfony\Component\Filesystem\Filesystem;
 
@@ -17,16 +18,19 @@ class DoctrineDiagram
 {
   public function __construct(
     private ConnectionRegistry $doctrine,
+    private PlantUml           $pumlToImage,
     private Toolbox            $toolbox,
     private string             $size,
     private string             $filename,
     private string             $format,
+    private ?string            $jar,
     private string             $server,
     private string             $theme,
     private ?string            $connection,
     /** @var string[] */
     private array              $exclude,
-  ) {
+  )
+  {
   }
 
   /**
@@ -51,6 +55,39 @@ class DoctrineDiagram
     $dbDraw = new DbDraw($connection);
 
     return $dbDraw->generatePuml($size, $theme, $exclude);
+  }
+
+  /**
+   * Convert diagram with jar file if it's available, or use server otherwise.
+   */
+  public function convertAuto(string $puml, ?string $format = null, ?string $server = null, ?string $jar = null): string
+  {
+    // Fallback values from doctrine_diagram.yaml
+    $jar ??= $this->jar;
+
+    if (is_string($jar)) {
+      $this->pumlToImage->setJar($jar);
+    }
+    if ($this->pumlToImage->isPlantUmlAvailable()) {
+      return $this->convertWithJar($puml, $format, $jar);
+    }
+
+    return $this->convertWithServer($puml, $format, $server);
+  }
+
+  /**
+   * Converts PlantUml diagram using jar file or executable as fallback.
+   */
+  public function convertWithJar(string $puml, ?string $format = null, ?string $jar = null): string
+  {
+    // Fallback values from doctrine_diagram.yaml
+    $format ??= $this->format;
+    $jar    ??= $this->jar;
+
+    if (is_string($jar)) {
+      $this->pumlToImage->setJar($jar);
+    }
+    return $this->pumlToImage->convertTo($puml, $format);
   }
 
   /**

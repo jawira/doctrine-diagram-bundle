@@ -57,7 +57,7 @@
   </target>
 
   <target name="visualizer" unless="uptodate.visualizer" description="Create buildfile map">
-    <visualizer format="svg"/>
+    <visualizer format="svg" footer="Phing buildfile"/>
   </target>
 
   <target name="mkdocs:serve" description="Run local server">

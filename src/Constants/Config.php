@@ -11,6 +11,8 @@ class Config
   public const FILENAME = 'filename';
   public const FORMAT = 'format';
   public const SERVER = 'server';
+  public const JAR = 'jar';
+  public const CONVERTER = 'converter';
   public const CONNECTION = 'connection';
   public const THEME = 'theme';
   public const EXCLUDE = 'exclude';
