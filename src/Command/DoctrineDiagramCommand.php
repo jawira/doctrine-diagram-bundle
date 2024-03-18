@@ -7,6 +7,7 @@ use Jawira\DoctrineDiagramBundle\Constants\Converter;
 use Jawira\DoctrineDiagramBundle\Constants\Format;
 use Jawira\DoctrineDiagramBundle\Constants\Size;
 use Jawira\DoctrineDiagramBundle\Service\DoctrineDiagram;
+use LogicException;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -76,6 +77,7 @@ class DoctrineDiagramCommand extends Command
       Converter::AUTO => $this->doctrineDiagram->convertAuto($puml, $format, $server, $jar),
       Converter::JAR => $this->doctrineDiagram->convertWithJar($puml, $format, $jar),
       Converter::SERVER => $this->doctrineDiagram->convertWithServer($puml, $format, $server),
+      default => throw new LogicException('Invalid converter'),
     };
     $fullName = $this->doctrineDiagram->dumpDiagram($content, $filename, $format);
 
