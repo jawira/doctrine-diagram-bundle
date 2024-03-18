@@ -47,7 +47,7 @@ class DoctrineDiagramCommand extends Command
       ->addOption(Config::FILENAME, null, InputOption::VALUE_REQUIRED, 'Destination file name.')
       ->addOption(Config::FORMAT, null, InputOption::VALUE_REQUIRED, sprintf('Diagram format (<info>%s</info>, <info>%s</info> or <info>%s</info>).', Format::SVG, Format::PNG, Format::PUML))
       ->addOption(Config::SIZE, null, InputOption::VALUE_REQUIRED, sprintf('Diagram size (<info>%s</info>, <info>%s</info> or <info>%s</info>).', Size::MINI, Size::MIDI, Size::MAXI))
-      ->addOption(Config::CONVERTER, null, InputOption::VALUE_REQUIRED, 'Which strategy will be used to convert puml to another format.', Converter::AUTO, Converter::JAR, Converter::SERVER)
+      ->addOption(Config::CONVERTER, null, InputOption::VALUE_REQUIRED, sprintf('Which strategy will be used to convert puml to another format (<info>%s</info>, <info>%s</info> or <info>%s</info>).', Converter::AUTO, Converter::JAR, Converter::SERVER))
       ->addOption(Config::SERVER, null, InputOption::VALUE_REQUIRED, 'PlantUML server URL, used to convert puml diagrams to svg or png.')
       ->addOption(Config::JAR, null, InputOption::VALUE_REQUIRED, 'Path to plantuml.jar, used to convert puml diagrams to svg or png.')
       ->addOption(Config::CONNECTION, null, InputOption::VALUE_REQUIRED, 'Doctrine connection to use.')
