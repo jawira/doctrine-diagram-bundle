@@ -12,4 +12,5 @@ class Fallback
   public const FORMAT = Format::SVG;
   public const SERVER = 'http://www.plantuml.com/plantuml';
   public const THEME = '_none_';
+  public const CONVERTER = Converter::AUTO;
 }
