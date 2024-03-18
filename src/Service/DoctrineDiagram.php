@@ -29,8 +29,7 @@ class DoctrineDiagram
     private ?string            $connection,
     /** @var string[] */
     private array              $exclude,
-  )
-  {
+  ) {
   }
 
   /**
