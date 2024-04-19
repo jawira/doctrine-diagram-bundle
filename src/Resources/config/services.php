@@ -25,6 +25,7 @@ return function (ContainerConfigurator $container): void {
     ->arg('$server', param('doctrine_diagram.' . Config::SERVER))
     ->arg('$theme', param('doctrine_diagram.' . Config::THEME))
     ->arg('$connection', param('doctrine_diagram.' . Config::CONNECTION))
+    ->arg('$converter', param('doctrine_diagram.' . Config::CONVERTER))
     ->arg('$exclude', param('doctrine_diagram.' . Config::EXCLUDE));
 
   $services->set('jawira.doctrine_diagram.command', DoctrineDiagramCommand::class)

@@ -7,7 +7,6 @@ use Jawira\DoctrineDiagramBundle\Constants\Converter;
 use Jawira\DoctrineDiagramBundle\Constants\Format;
 use Jawira\DoctrineDiagramBundle\Constants\Size;
 use Jawira\DoctrineDiagramBundle\Service\DoctrineDiagram;
-use LogicException;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -35,11 +34,11 @@ class DoctrineDiagramCommand extends Command
 
         <comment>THEMES</comment>
         Well-known themes: <info>amiga</info>, <info>blueprint</info>, <info>cerulean</info>, <info>crt-amber</info>, <info>crt-green</info>, <info>cyborg</info>, <info>lightgray</info>, <info>plain</info>, <info>silver</info>, <info>vibrant</info>.
-        Please note that the availability of themes may vary depending on the specific version of PlantUML being utilized to render the diagrams.
+        Please note that the availability of themes may vary depending on the specific version of PlantUML being used to render the diagrams.
 
         <comment>FORMATS</comment>
-        If you are experiencing problems creating a diagram, try using PlantUML (<info>puml</info>) format.
-        Unlike <info>png</info> and <info>svg</info> formats, PlantUML doesn't require an internet connection.
+        Use PlantUML format <info>puml</info> if you are experiencing problems when creating a diagram.
+        Unlike <info>png</info> and <info>svg</info> formats, <info>puml</info> doesn't require an internet connection.
         HELP
       )
       ->addUsage(sprintf('--%s=project.png --%s=png', Config::FILENAME, Config::FORMAT))
@@ -73,12 +72,7 @@ class DoctrineDiagramCommand extends Command
     $excludeArray = is_string($exclude) ? explode(',', $exclude) : null;
 
     $puml     = $this->doctrineDiagram->generatePuml($connectionName, $size, $theme, $excludeArray);
-    $content  = match ($converter) {
-      Converter::AUTO => $this->doctrineDiagram->convertAuto($puml, $format, $server, $jar),
-      Converter::JAR => $this->doctrineDiagram->convertWithJar($puml, $format, $jar),
-      Converter::SERVER => $this->doctrineDiagram->convertWithServer($puml, $format, $server),
-      default => throw new LogicException('Invalid converter'),
-    };
+    $content = $this->doctrineDiagram->convert($puml,$format, $converter, $server, $jar );
     $fullName = $this->doctrineDiagram->dumpDiagram($content, $filename, $format);
 
     $errorStyle->success("Diagram: $fullName");

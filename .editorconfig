@@ -12,6 +12,7 @@ ij_php_align_assignments        = true
 ij_php_phpdoc_wrap_long_lines   = true
 ij_php_align_phpdoc_param_names = true
 ij_php_align_phpdoc_comments    = true
+ij_php_align_match_arm_bodies   = true
 
 [*.{php,twig,xml}]
 indent_size  = 2
@@ -22,7 +23,7 @@ indent_size  = 4
 indent_style = space
 
 [.github/**/*.{yaml,yml}]
-indent_size  = 2
+indent_size = 2
 
 [*.{md,markdown}]
 trim_trailing_whitespace = false
