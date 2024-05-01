@@ -3,8 +3,7 @@
 namespace Jawira\DoctrineDiagramBundle\Command;
 
 use Jawira\DoctrineDiagramBundle\Constants\Config;
-use Jawira\DoctrineDiagramBundle\Constants\Converter;
-use Jawira\DoctrineDiagramBundle\Constants\Format;
+use Jawira\DoctrineDiagramBundle\Constants\Info;
 use Jawira\DoctrineDiagramBundle\Constants\Size;
 use Jawira\DoctrineDiagramBundle\Service\DoctrineDiagram;
 use Symfony\Component\Console\Attribute\AsCommand;
@@ -43,15 +42,15 @@ class DoctrineDiagramCommand extends Command
       )
       ->addUsage(sprintf('--%s=project.png --%s=png', Config::FILENAME, Config::FORMAT))
       ->addUsage(sprintf('--%s=%s', Config::SIZE, Size::MINI))
-      ->addOption(Config::FILENAME, null, InputOption::VALUE_REQUIRED, 'Destination file name.')
-      ->addOption(Config::FORMAT, null, InputOption::VALUE_REQUIRED, sprintf('Diagram format (<info>%s</info>, <info>%s</info> or <info>%s</info>).', Format::SVG, Format::PNG, Format::PUML))
-      ->addOption(Config::SIZE, null, InputOption::VALUE_REQUIRED, sprintf('Diagram size (<info>%s</info>, <info>%s</info> or <info>%s</info>).', Size::MINI, Size::MIDI, Size::MAXI))
-      ->addOption(Config::CONVERTER, null, InputOption::VALUE_REQUIRED, sprintf('Which strategy will be used to convert puml to another format (<info>%s</info>, <info>%s</info> or <info>%s</info>).', Converter::AUTO, Converter::JAR, Converter::SERVER))
-      ->addOption(Config::SERVER, null, InputOption::VALUE_REQUIRED, 'PlantUML server URL, used to convert puml diagrams to svg or png.')
-      ->addOption(Config::JAR, null, InputOption::VALUE_REQUIRED, 'Path to plantuml.jar, used to convert puml diagrams to svg or png.')
-      ->addOption(Config::CONNECTION, null, InputOption::VALUE_REQUIRED, 'Doctrine connection to use.')
-      ->addOption(Config::THEME, null, InputOption::VALUE_REQUIRED, 'Change diagram colors and style.')
-      ->addOption(Config::EXCLUDE, null, InputOption::VALUE_REQUIRED, 'Comma separated list of tables to exclude from diagram.');
+      ->addOption(Config::FILENAME, null, InputOption::VALUE_REQUIRED, Info::FILE_NAME)
+      ->addOption(Config::FORMAT, null, InputOption::VALUE_REQUIRED, Info::FORMAT)
+      ->addOption(Config::SIZE, null, InputOption::VALUE_REQUIRED, Info::SIZE)
+      ->addOption(Config::CONVERTER, null, InputOption::VALUE_REQUIRED, Info::CONVERTER)
+      ->addOption(Config::SERVER, null, InputOption::VALUE_REQUIRED, Info::SERVER)
+      ->addOption(Config::JAR, null, InputOption::VALUE_REQUIRED, Info::JAR)
+      ->addOption(Config::CONNECTION, null, InputOption::VALUE_REQUIRED, Info::CONNECTION)
+      ->addOption(Config::THEME, null, InputOption::VALUE_REQUIRED, Info::THEME)
+      ->addOption(Config::EXCLUDE, null, InputOption::VALUE_REQUIRED, Info::EXCLUDE);
   }
 
   protected function execute(InputInterface $input, OutputInterface $output): int
@@ -72,7 +71,7 @@ class DoctrineDiagramCommand extends Command
     $excludeArray = is_string($exclude) ? explode(',', $exclude) : null;
 
     $puml     = $this->doctrineDiagram->generatePuml($connectionName, $size, $theme, $excludeArray);
-    $content = $this->doctrineDiagram->convert($puml,$format, $converter, $server, $jar );
+    $content  = $this->doctrineDiagram->convert($puml, $format, $converter, $server, $jar);
     $fullName = $this->doctrineDiagram->dumpDiagram($content, $filename, $format);
 
     $errorStyle->success("Diagram: $fullName");
