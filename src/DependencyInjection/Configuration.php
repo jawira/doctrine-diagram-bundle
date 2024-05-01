@@ -3,6 +3,7 @@
 namespace Jawira\DoctrineDiagramBundle\DependencyInjection;
 
 use Jawira\DoctrineDiagramBundle\Constants\Config;
+ use Jawira\DoctrineDiagramBundle\Constants\Converter;
 use Jawira\DoctrineDiagramBundle\Constants\Fallback;
 use Jawira\DoctrineDiagramBundle\Constants\Size;
 use Jawira\DoctrineDiagramBundle\Constants\Format;
@@ -23,17 +24,18 @@ class Configuration implements ConfigurationInterface
 
     $rootNode->children()
       ->enumNode(Config::SIZE)
-      ->values([Size::MINI, Size::MIDI, Size::MAXI])
+      ->values(Size::allSizes())
       ->defaultValue(Fallback::SIZE)
       ->end()
       ->scalarNode(Config::FILENAME)
       ->defaultValue(Fallback::FILENAME)
       ->end()
       ->enumNode(Config::FORMAT)
-      ->values([Format::PUML, Format::PNG, Format::SVG])
+      ->values(Format::allFormats())
       ->defaultValue(Fallback::FORMAT)
       ->end()
-      ->scalarNode(Config::CONVERTER)
+      ->enumNode(Config::CONVERTER)
+      ->values(Converter::allConverter())
       ->defaultValue(Fallback::CONVERTER)
       ->end()
       ->scalarNode(Config::JAR)

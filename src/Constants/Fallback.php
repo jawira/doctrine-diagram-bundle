@@ -3,6 +3,8 @@
 namespace Jawira\DoctrineDiagramBundle\Constants;
 
 /**
+ * All fallback values for configuration file.
+ *
  * @internal
  */
 class Fallback
