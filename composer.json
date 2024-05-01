@@ -17,7 +17,8 @@
   ],
   "homepage": "https://github.com/jawira/doctrine-diagram-bundle",
   "support": {
-    "issues": "https://github.com/jawira/doctrine-diagram-bundle/issues"
+    "issues": "https://github.com/jawira/doctrine-diagram-bundle/issues",
+    "docs": "https://jawira.github.io/doctrine-diagram-bundle"
   },
   "require": {
     "php": "^8.0",
@@ -26,18 +27,20 @@
     "jawira/db-draw": "^1.6",
     "jawira/plantuml-client": "^1.0",
     "jawira/plantuml-to-image": "^1.1",
+    "symfony/config": "^6.0 || ^7.0",
     "symfony/console": "^6.0 || ^7.0",
+    "symfony/dependency-injection": "^6.0 || ^7.0",
     "symfony/filesystem": "^6.0 || ^7.0",
-    "symfony/framework-bundle": "^6.0 || ^7.0"
+    "symfony/http-kernel": "^6.0 || ^7.0"
   },
   "require-dev": {
-    "ergebnis/composer-normalize": "^2.31",
-    "friendsofphp/php-cs-fixer": "^3.46",
-    "jawira/plantuml": "^1.2023",
+    "ergebnis/composer-normalize": "^2.42",
+    "friendsofphp/php-cs-fixer": "^3.54",
+    "jawira/plantuml": "^1.2024.4",
     "jawira/skeleton": "^2.22",
     "phpstan/extension-installer": "^1.3.1",
-    "phpstan/phpstan": "^1.10.55",
-    "phpstan/phpstan-symfony": "^1.3.7"
+    "phpstan/phpstan": "^1.10.67",
+    "phpstan/phpstan-symfony": "^1.3.12"
   },
   "suggest": {
     "jawira/plantuml": "Install PlantUML executable/jar with Composer."
