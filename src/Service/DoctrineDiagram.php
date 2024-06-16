@@ -11,6 +11,8 @@ use Jawira\PlantUmlClient\Client;
 use Jawira\PlantUmlToImage\PlantUml;
 use RuntimeException;
 use Symfony\Component\Filesystem\Filesystem;
+use function file_put_contents;
+use function is_string;
 
 /**
  * Main service to generate diagrams.
@@ -97,7 +99,7 @@ class DoctrineDiagram
   /**
    * Converts PlantUml diagram using jar file or executable as fallback.
    *
-   * @param string|null $jar When `null` PumlToImage will try to find Jar.
+   * @param string|null $jar When `null` {@see DoctrineDiagram} will try to find Jar.
    */
   private function convertWithJar(string $puml, string $format, ?string $jar): string
   {
@@ -113,7 +115,6 @@ class DoctrineDiagram
    * @param string $puml   Diagram in puml format.
    * @param string $format Convert puml diagram to this format.
    * @param string $server PlantUML server to use to do conversion.
-   * @return string
    */
   private function convertWithServer(string $puml, string $format, string $server): string
   {
@@ -126,7 +127,6 @@ class DoctrineDiagram
    * @param string      $content  The diagram content to be dumped.
    * @param string|null $filename Target file name. This can be a path, {@see Filesystem} is able to handle it.
    * @param string|null $format   Target file extension.
-   * @return string
    */
   public function dumpDiagram(string $content, ?string $filename, ?string $format): string
   {
