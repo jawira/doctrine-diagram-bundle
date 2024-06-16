@@ -42,3 +42,6 @@ jobs:
 
       - name: composer:audit
         run: bin/phing composer:audit
+
+      - name: composer:outdated
+        run: bin/phing composer:outdated

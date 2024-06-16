@@ -4,7 +4,8 @@
 
 
   <target name="setup" depends="composer:install"/>
-  <target name="qa" depends="composer:normalize,composer:validate,cs:fix,cs:check,phpstan:analyse,composer:audit"/>
+  <target name="qa"
+          depends="composer:normalize,composer:validate,composer:outdated,cs:fix,cs:check,phpstan:analyse,composer:audit"/>
   <target name="docs" depends="plantuml:convert,mkdocs:serve"/>
 
 
@@ -50,6 +51,12 @@
     </composer>
   </target>
 
+  <target name="composer:outdated" description="Normalize composer.json">
+    <composer command="outdated">
+      <arg line="--direct --major-only --strict"/>
+    </composer>
+  </target>
+
   <target name="help">
     <uptodate property="uptodate.visualizer" srcfile="build.xml" targetfile="build.svg"/>
     <runtarget target="visualizer"/>
@@ -57,7 +64,7 @@
   </target>
 
   <target name="visualizer" unless="uptodate.visualizer" description="Create buildfile map">
-    <visualizer format="svg"/>
+    <visualizer format="svg" footer="Phing buildfile"/>
   </target>
 
   <target name="mkdocs:serve" description="Run local server">

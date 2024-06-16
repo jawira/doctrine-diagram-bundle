@@ -4,6 +4,10 @@ namespace Jawira\DoctrineDiagramBundle\Service;
 
 use Jawira\DoctrineDiagramBundle\Constants\Format;
 use ReflectionClass;
+use function boolval;
+use function in_array;
+use function preg_match;
+use function str_ends_with;
 
 /**
  * @internal

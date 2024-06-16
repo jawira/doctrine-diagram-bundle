@@ -19,6 +19,8 @@ class DoctrineDiagramExtension extends Extension
     $container->setParameter('doctrine_diagram.' . Config::SIZE, $config[Config::SIZE]);
     $container->setParameter('doctrine_diagram.' . Config::FILENAME, $config[Config::FILENAME]);
     $container->setParameter('doctrine_diagram.' . Config::FORMAT, $config[Config::FORMAT]);
+    $container->setParameter('doctrine_diagram.' . Config::CONVERTER, $config[Config::CONVERTER]);
+    $container->setParameter('doctrine_diagram.' . Config::JAR, $config[Config::JAR]);
     $container->setParameter('doctrine_diagram.' . Config::SERVER, $config[Config::SERVER]);
     $container->setParameter('doctrine_diagram.' . Config::THEME, $config[Config::THEME]);
     $container->setParameter('doctrine_diagram.' . Config::CONNECTION, $config[Config::CONNECTION]);
