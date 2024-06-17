@@ -40,7 +40,8 @@
     "jawira/skeleton": "^2.22",
     "phpstan/extension-installer": "^1.3.1",
     "phpstan/phpstan": "^1.10.67",
-    "phpstan/phpstan-symfony": "^1.3.12"
+    "phpstan/phpstan-symfony": "^1.3.12",
+    "symfony/test-pack": "^1.0"
   },
   "suggest": {
     "jawira/plantuml": "Install PlantUML executable/jar with Composer."

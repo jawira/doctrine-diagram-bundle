@@ -19,6 +19,9 @@ class Toolbox
    */
   public function appendExtension(string $filename, string $extension): string
   {
+    (trim($filename) !== '') or throw new \RuntimeException('Filename cannot be empty');
+    (trim($extension) !== '') or throw new \RuntimeException('Extension cannot be empty');
+
     return str_ends_with($filename, ".$extension") ? $filename : "$filename.$extension";
   }
 
@@ -40,7 +43,6 @@ class Toolbox
    */
   public function isValidFormat(string $format): bool
   {
-    $reflectionClass = new ReflectionClass(Format::class);
-    return in_array($format, $reflectionClass->getConstants(), true);
+    return in_array($format, Format::allFormats(), true);
   }
 }
