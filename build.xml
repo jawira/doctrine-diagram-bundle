@@ -5,7 +5,7 @@
 
   <target name="setup" depends="composer:install"/>
   <target name="qa"
-          depends="composer:normalize,composer:validate,composer:outdated,cs:fix,cs:check,phpstan:analyse,composer:audit"/>
+          depends="composer:normalize,composer:validate,cs:fix,cs:check,phpstan:analyse,composer:audit"/>
   <target name="docs" depends="plantuml:convert,mkdocs:serve"/>
 
 
@@ -48,12 +48,6 @@
       <arg value="--diff"/>
       <arg value="--indent-size=2"/>
       <arg value="--indent-style=space"/>
-    </composer>
-  </target>
-
-  <target name="composer:outdated" description="Normalize composer.json">
-    <composer command="outdated">
-      <arg line="--direct --major-only --strict"/>
     </composer>
   </target>
 
