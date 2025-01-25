@@ -21,7 +21,7 @@
     "docs": "https://jawira.github.io/doctrine-diagram-bundle"
   },
   "require": {
-    "php": "^8.0",
+    "php": "^8.1",
     "doctrine/doctrine-bundle": "^2.5",
     "doctrine/orm": "^2.9 || ^3.0",
     "jawira/db-draw": "^1.6",
