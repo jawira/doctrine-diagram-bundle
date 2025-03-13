@@ -11,6 +11,13 @@
 [![PHP Version Require](http://poser.pugx.org/jawira/doctrine-diagram-bundle/require/php)](https://packagist.org/packages/jawira/doctrine-diagram-bundle)
 [![License](http://poser.pugx.org/jawira/doctrine-diagram-bundle/license)](https://packagist.org/packages/jawira/doctrine-diagram-bundle)
 
+## Installation
+
+```bash
+composer config extra.symfony.allow-contrib true
+composer require jawira/doctrine-diagram-bundle --dev
+```
+
 ## Usage
 
 Run this command to generate a _ER_ diagram:
