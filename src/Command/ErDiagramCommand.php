@@ -5,7 +5,8 @@ namespace Jawira\DoctrineDiagramBundle\Command;
 use Jawira\DoctrineDiagramBundle\Constants\Config;
 use Jawira\DoctrineDiagramBundle\Constants\Info;
 use Jawira\DoctrineDiagramBundle\Constants\Size;
-use Jawira\DoctrineDiagramBundle\Service\DoctrineDiagram;
+use Jawira\DoctrineDiagramBundle\Service\ConversionService;
+use Jawira\DoctrineDiagramBundle\Service\ErDiagram;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -17,11 +18,13 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 /**
  * @author  Jawira Portugal
  */
-#[AsCommand('doctrine:diagram', 'Create a database diagram.')]
-class DoctrineDiagramCommand extends Command
+#[AsCommand('doctrine:diagram:er', 'Create an Entity-Relationship diagram.')]
+class ErDiagramCommand extends Command
 {
-  public function __construct(private DoctrineDiagram $doctrineDiagram)
-  {
+  public function __construct(
+    private ErDiagram         $erDiagram,
+    private ConversionService $conversionService,
+  ) {
     parent::__construct();
   }
 
@@ -70,9 +73,9 @@ class DoctrineDiagramCommand extends Command
 
     $excludeArray = is_string($exclude) ? explode(',', $exclude) : null;
 
-    $puml     = $this->doctrineDiagram->generatePuml($connectionName, $size, $theme, $excludeArray);
-    $content  = $this->doctrineDiagram->convert($puml, $format, $converter, $server, $jar);
-    $fullName = $this->doctrineDiagram->dumpDiagram($content, $filename, $format);
+    $puml     = $this->erDiagram->generatePuml($connectionName, $size, $theme, $excludeArray);
+    $content  = $this->conversionService->convert($puml, $format, $converter, $server, $jar);
+    $fullName = $this->conversionService->dumpDiagram($content, $filename, $format);
 
     $errorStyle->success("Diagram: $fullName");
 
