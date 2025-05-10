@@ -7,6 +7,11 @@ namespace Jawira\DoctrineDiagramBundle\Constants;
  */
 class Config
 {
+  public const ROOT = 'doctrine_diagram';
+  public const ER = 'er';
+  public const EM = 'em';
+  public const CLASSN = 'class';
+  public const CONVERT = 'convert';
   public const SIZE = 'size';
   public const FILENAME = 'filename';
   public const FORMAT = 'format';

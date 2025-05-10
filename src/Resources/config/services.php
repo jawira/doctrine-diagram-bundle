@@ -3,7 +3,7 @@
 namespace Symfony\Component\DependencyInjection\Loader\Configurator;
 
 use Jawira\DoctrineDiagramBundle\Command\DoctrineDiagramCommand;
-use Jawira\DoctrineDiagramBundle\Constants\Config;
+use Jawira\DoctrineDiagramBundle\Constants\Config as C;
 use Jawira\DoctrineDiagramBundle\Service\DoctrineDiagram;
 use Jawira\DoctrineDiagramBundle\Service\Toolbox;
 use Jawira\PlantUmlToImage\PlantUml;
@@ -14,19 +14,22 @@ return function (ContainerConfigurator $container): void {
   $services->set('.jawira.doctrine_diagram.plantuml_to_image', PlantUml::class);
   $services->set('.jawira.doctrine_diagram.toolbox', Toolbox::class);
 
+  $c = Toolbox::concat(...);
   $services->set('jawira.doctrine_diagram.service', DoctrineDiagram::class)
     ->arg('$doctrine', service('doctrine'))
     ->arg('$pumlToImage', service('.jawira.doctrine_diagram.plantuml_to_image'))
     ->arg('$toolbox', service('.jawira.doctrine_diagram.toolbox'))
-    ->arg('$size', param('doctrine_diagram.' . Config::SIZE))
-    ->arg('$filename', param('doctrine_diagram.' . Config::FILENAME))
-    ->arg('$format', param('doctrine_diagram.' . Config::FORMAT))
-    ->arg('$jar', param('doctrine_diagram.' . Config::JAR))
-    ->arg('$server', param('doctrine_diagram.' . Config::SERVER))
-    ->arg('$theme', param('doctrine_diagram.' . Config::THEME))
-    ->arg('$connection', param('doctrine_diagram.' . Config::CONNECTION))
-    ->arg('$converter', param('doctrine_diagram.' . Config::CONVERTER))
-    ->arg('$exclude', param('doctrine_diagram.' . Config::EXCLUDE));
+    // er
+    ->arg('$filename', param($c(C::ROOT, C::ER, C::FILENAME)))
+    ->arg('$size', param($c(C::ROOT, C::ER, C::SIZE)))
+    ->arg('$format', param($c(C::ROOT, C::ER, C::FORMAT)))
+    ->arg('$theme', param($c(C::ROOT, C::ER, C::THEME)))
+    ->arg('$connection', param($c(C::ROOT, C::ER, C::CONNECTION)))
+    ->arg('$exclude', param($c(C::ROOT, C::ER, C::EXCLUDE)))
+    // convert
+    ->arg('$converter', param($c(C::ROOT, C::CONVERT, C::CONVERTER)))
+    ->arg('$jar', param($c(C::ROOT, C::CONVERT, C::JAR)))
+    ->arg('$server', param($c(C::ROOT, C::CONVERT, C::SERVER)));
 
   $services->set('jawira.doctrine_diagram.command', DoctrineDiagramCommand::class)
     ->arg('$doctrineDiagram', service('jawira.doctrine_diagram.service'))
