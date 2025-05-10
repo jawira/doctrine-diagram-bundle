@@ -5,6 +5,7 @@ namespace Jawira\DoctrineDiagramBundle\Service;
 use Jawira\DoctrineDiagramBundle\Constants\Format;
 use ReflectionClass;
 use function boolval;
+use function implode;
 use function in_array;
 use function preg_match;
 use function str_ends_with;
@@ -42,5 +43,13 @@ class Toolbox
   {
     $reflectionClass = new ReflectionClass(Format::class);
     return in_array($format, $reflectionClass->getConstants(), true);
+  }
+
+  /**
+   * Concatenate string using a dot.
+   */
+  static public function concat(string ...$params): string
+  {
+    return implode('.', $params);
   }
 }

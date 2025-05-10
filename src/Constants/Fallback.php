@@ -10,7 +10,8 @@ namespace Jawira\DoctrineDiagramBundle\Constants;
 class Fallback
 {
   public const SIZE = Size::MIDI;
-  public const FILENAME = '%kernel.project_dir%/database';
+  public const FILENAME_CLASS = '%kernel.project_dir%/database';
+  public const FILENAME_ER = '%kernel.project_dir%/er';
   public const FORMAT = Format::SVG;
   public const SERVER = 'http://www.plantuml.com/plantuml';
   public const THEME = '_none_';
