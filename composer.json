@@ -7,7 +7,9 @@
     "symfony-bundle",
     "diagram",
     "doctrine",
-    "database"
+    "database",
+    "uml",
+    "dev"
   ],
   "authors": [
     {

@@ -2,10 +2,6 @@
 
 **📐 Symfony Bundle to generate database diagrams.**
 
-> [!IMPORTANT]
-> This project is still a *work in progress*, so you should expect BC breaks in
-> future releases.<br>Please report any bug.
-
 [![Latest Stable Version](http://poser.pugx.org/jawira/doctrine-diagram-bundle/v)](https://packagist.org/packages/jawira/doctrine-diagram-bundle)
 [![Total Downloads](http://poser.pugx.org/jawira/doctrine-diagram-bundle/downloads)](https://packagist.org/packages/jawira/doctrine-diagram-bundle)
 [![PHP Version Require](http://poser.pugx.org/jawira/doctrine-diagram-bundle/require/php)](https://packagist.org/packages/jawira/doctrine-diagram-bundle)
@@ -20,13 +16,13 @@ composer require jawira/doctrine-diagram-bundle --dev
 
 ## Usage
 
-Run this command to generate a _ER_ diagram:
+Run this command to generate an _ER_ diagram:
 
 ```console
-bin/console doctrine:diagram
+bin/console doctrine:diagram:er
 ```
 
-Then open `database.svg` located at the root of your project:
+Then open `er.svg` located at the root of your project:
 
 ![diagram](docs/images/midi.png)
 
@@ -36,8 +32,9 @@ Then open `database.svg` located at the root of your project:
 
 ## Contributing
 
-If you liked this project,
-⭐ [star it on GitHub](https://github.com/jawira/doctrine-diagram-bundle).
+- Please report any bug.
+- If you liked this project, ⭐ star it on GitHub.
+- Or follow me on 𝕏. [![𝕏 Follow](https://img.shields.io/twitter/follow/jawira?style=social)](https://x.com/jawira)
 
 ## License
 
