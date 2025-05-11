@@ -6,6 +6,7 @@ use Jawira\DoctrineDiagramBundle\Constants\Config;
 use Jawira\DoctrineDiagramBundle\Constants\Info;
 use Jawira\DoctrineDiagramBundle\Constants\Size;
 use Jawira\DoctrineDiagramBundle\Service\ConversionService;
+use Jawira\DoctrineDiagramBundle\Service\DumpService;
 use Jawira\DoctrineDiagramBundle\Service\ErDiagram;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
@@ -13,17 +14,20 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
+use function explode;
+use function is_string;
 
 
 /**
  * @author  Jawira Portugal
  */
 #[AsCommand('doctrine:diagram:er', 'Create an Entity-Relationship diagram.')]
-class ErDiagramCommand extends Command
+class ErCommand extends Command
 {
   public function __construct(
-    private ErDiagram         $erDiagram,
-    private ConversionService $conversionService,
+    private readonly ErDiagram         $erDiagram,
+    private readonly ConversionService $conversionService,
+    private readonly DumpService       $dumpService,
   ) {
     parent::__construct();
   }
@@ -32,7 +36,7 @@ class ErDiagramCommand extends Command
   {
     $this
       ->setHelp(<<<'HELP'
-        Create a database diagram using a Doctrine ORM connection.
+        Create an Entity-Relationship diagram using a Doctrine ORM connection.
 
         <comment>THEMES</comment>
         Well-known themes: <info>amiga</info>, <info>blueprint</info>, <info>cerulean</info>, <info>crt-amber</info>, <info>crt-green</info>, <info>cyborg</info>, <info>lightgray</info>, <info>plain</info>, <info>silver</info>, <info>vibrant</info>.
@@ -75,7 +79,7 @@ class ErDiagramCommand extends Command
 
     $puml     = $this->erDiagram->generatePuml($connectionName, $size, $theme, $excludeArray);
     $content  = $this->conversionService->convert($puml, $format, $converter, $server, $jar);
-    $fullName = $this->conversionService->dumpDiagram($content, $filename, $format);
+    $fullName = $this->dumpService->dumpErDiagram($content, $filename, $format);
 
     $errorStyle->success("Diagram: $fullName");
 

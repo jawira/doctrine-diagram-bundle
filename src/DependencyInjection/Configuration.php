@@ -19,7 +19,7 @@ class Configuration implements ConfigurationInterface
 {
   public function getConfigTreeBuilder(): TreeBuilder
   {
-    $buildTree = new TreeBuilder('doctrine_diagram');
+    $buildTree = new TreeBuilder(Config::ROOT);
     $rootNode  = $buildTree->getRootNode();
     ($rootNode instanceof ParentNodeDefinitionInterface) or throw new \RuntimeException('Invalid root node when configuring bundle.');
 
@@ -45,10 +45,6 @@ class Configuration implements ConfigurationInterface
       ->enumNode(Config::SIZE)
       ->values(Size::allSizes())
       ->defaultValue(Fallback::SIZE)
-      ->end()
-      ->enumNode(Config::FORMAT)
-      ->values(Format::allFormats())
-      ->defaultValue(Fallback::FORMAT)
       ->end()
       ->scalarNode(Config::THEME)
       ->defaultValue(Fallback::THEME)
@@ -78,10 +74,6 @@ class Configuration implements ConfigurationInterface
       ->values(Size::allSizes())
       ->defaultValue(Fallback::SIZE)
       ->end()
-      ->enumNode(Config::FORMAT)
-      ->values(Format::allFormats())
-      ->defaultValue(Fallback::FORMAT)
-      ->end()
       ->scalarNode(Config::THEME)
       ->defaultValue(Fallback::THEME)
       ->end()
@@ -104,6 +96,10 @@ class Configuration implements ConfigurationInterface
 
     $node->addDefaultsIfNotSet()
       ->children()
+      ->enumNode(Config::FORMAT)
+      ->values(Format::allFormats())
+      ->defaultValue(Fallback::FORMAT)
+      ->end()
       ->enumNode(Config::CONVERTER)
       ->values(Converter::allConverter())
       ->defaultValue(Fallback::CONVERTER)
