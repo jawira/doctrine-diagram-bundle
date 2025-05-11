@@ -4,19 +4,19 @@ namespace Jawira\DoctrineDiagramBundle\Service;
 
 
 use Doctrine\DBAL\Connection;
-use Doctrine\Persistence\ConnectionRegistry;
+use Doctrine\Persistence\ManagerRegistry;
 use Jawira\DbDraw\DbDraw;
 use RuntimeException;
 
 class ErDiagram
 {
   public function __construct(
-    private ConnectionRegistry $doctrine,
-    private string             $size,
-    private string             $theme,
-    private ?string            $connection,
+    private readonly ManagerRegistry $doctrine,
+    private readonly string          $size,
+    private readonly string          $theme,
+    private readonly ?string         $connection,
     /** @var string[] */
-    private array              $exclude,
+    private readonly array           $exclude,
   ) {
   }
 
@@ -27,9 +27,9 @@ class ErDiagram
    * The arguments of this method come from the console. If no values are provided, then the values from the config
    * file are used as a fallback.
    *
-   * @param null|string[] $exclude List of tables to exclude from diagram.
+   * @param null|string[] $exclude List of tables to exclude from the diagram.
    */
-  public function generatePuml(?string $connectionName = null, ?string $size = null, ?string $theme = null, ?array $exclude = null): string
+  public function generatePuml(?string $connectionName, ?string $size, ?string $theme, ?array $exclude): string
   {
     // Fallback values from doctrine_diagram.yaml
     $connectionName ??= $this->connection;
@@ -39,7 +39,7 @@ class ErDiagram
 
     // Generate puml diagram
     $connection = $this->doctrine->getConnection($connectionName);
-    ($connection instanceof Connection) or throw new RuntimeException('Cannot get required Connection');
+    ($connection instanceof Connection) or throw new RuntimeException('Cannot get required required Connection');
     $dbDraw = new DbDraw($connection);
 
     return $dbDraw->generatePuml($size, $theme, $exclude);

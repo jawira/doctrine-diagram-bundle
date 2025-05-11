@@ -4,6 +4,8 @@ namespace Jawira\DoctrineDiagramBundle\Constants;
 
 /**
  * All descriptions for configuration flags and config files.
+ *
+ * @internal
  */
 class Info
 {
@@ -14,6 +16,7 @@ class Info
   public const SERVER = 'PlantUML server URL, used to convert puml diagrams to svg or png.';
   public const JAR = 'Path to plantuml.jar, used to convert puml diagrams to svg or png.';
   public const CONNECTION = 'Doctrine connection to use.';
+  public const EM = 'Entity Manager to use.';
   public const THEME = 'Change diagram colors and style.';
   public const EXCLUDE = 'Comma separated list of tables to exclude from diagram.';
 }

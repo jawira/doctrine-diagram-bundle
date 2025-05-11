@@ -7,17 +7,18 @@ use Jawira\DoctrineDiagramBundle\Constants\Format;
 use Jawira\PlantUmlClient\Client;
 use Jawira\PlantUmlToImage\PlantUml;
 
+/**
+ * Convert PUML diagram to another format when required.
+ */
 class ConversionService
 {
   public function __construct(
-
-    private PlantUml $pumlToImage,
-    private Toolbox  $toolbox,
-    private string   $filename,
-    private string   $format,
-    private ?string  $jar,
-    private string   $server,
-    private string   $converter,
+    private readonly PlantUml $pumlToImage,
+    private readonly Toolbox  $toolbox,
+    private readonly string   $format,
+    private readonly ?string  $jar,
+    private readonly string   $server,
+    private readonly string   $converter,
   ) {
   }
 
@@ -80,26 +81,5 @@ class ConversionService
   private function convertWithServer(string $puml, string $format, string $server): string
   {
     return (new Client($server))->generateImage($puml, $format);
-  }
-
-  /**
-   * Dump image into a file.
-   *
-   * @param string      $content  The diagram content to be dumped.
-   * @param string|null $filename Target file name. This can be a path, {@see Filesystem} is able to handle it.
-   * @param string|null $format   Target file extension.
-   */
-  public function dumpDiagram(string $content, ?string $filename, ?string $format): string
-  {
-    // Fallback values from doctrine_diagram.yaml
-    $filename ??= $this->filename;
-    $format   ??= $this->format;
-
-    if (!$this->toolbox->isWrapper($filename)) {
-      $filename = $this->toolbox->appendExtension($filename, $format);
-    }
-    file_put_contents($filename, $content);
-
-    return $filename;
   }
 }
