@@ -1,15 +1,15 @@
 site_name: !ENV [ SITE_NAME, 'Doctrine Diagram Bundle - dev' ]
 theme: material
-copyright: © 2023-2024 Jawira Portugal
+copyright: © 2023-2025 Jawira Portugal
 site_author: Jawira Portugal
 strict: true
 use_directory_urls: false
 nav:
     - 'index.md'
     - 'installing.md'
-    - 'configuration.md'
     - 'usage.md'
-    - 'themes.md'
+    - 'configuration.md'
+    - PlantUML: 'plantuml.md'
 markdown_extensions:
     - admonition
     - pymdownx.highlight:

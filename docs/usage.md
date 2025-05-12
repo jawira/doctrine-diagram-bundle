@@ -1,148 +1,174 @@
-## Create an ER diagram
+_DoctrineDiagramBundle_ provides two _Symfony_ commands to generate diagrams
+from your database:
 
-To generate an ER diagram from your current Doctrine database, use the following
-command:
+* `doctrine:diagram:er` - To generate Entity-Relationship diagrams.
+* `doctrine:diagram:class` - To generate Class diagrams.
+
+## Generating Entity-Relationship diagrams
+
+An Entity-Relationship (ER) diagram visually represents the entities (such as
+tables) in a database, their attributes (such as columns), and the relationships
+between them.
+
+Use the following command to generate Entity-Relationship diagrams:
 
 ```console
-bin/console doctrine:diagram
+bin/console doctrine:diagram:er
 ```
 
-If you are using the default configuration, a file named `database.png` will be
+You can also use the following shortcut:
+
+```console
+bin/console d:d:er
+```
+
+If you are using the default configuration, a file named `er.svg` will be
 created at the root of your project.
 
-## Change the diagram format
+![er diagram](images/er.svg)
 
-Three formats are supported: `png`, `svg`, and `puml`.
-
-You can set the format from the terminal using the --format option:
-
-```console
-bin/console doctrine:diagram --format=puml
-```
-
-Alternatively, you can set the format in config/packages/doctrine_diagram.yaml:
-
-```yaml
-doctrine_diagram:
-    # ...
-    format: png
-```
-
-If you encounter difficulties generating your diagram, use the puml format as it
-doesn't require a PlantUML server to function.
-
-## Set diagram size
-
-You can generate diagrams in different sizes:
-
-* **mini**: Display only table names.
-* **midi**: Include tables and columns.
-* **maxi**: Show table names, columns, and views.
-
-Adjust the diagram size using the `--size` option:
+If your application uses multiple databases, you can specify which DBAL
+connection to use using the `--connection` option:
 
 ```console
-bin/console doctrine:diagram --size=mini
+bin/console doctrine:diagram:er --connection=employees
 ```
 
-Alternatively, set the diagram size in the config file:
+You can also set the DBAL connection in `doctrine_diagram.yaml`.
 
 ```yaml
 doctrine_diagram:
-    # ...
-    size: mini
+    er:
+        connection: employees
 ```
 
-## Specify ER diagram name
+Set the connection to _null_, and the default connection will be used.
 
-By default, the diagram filename is `database`, and the file extension is added
-automatically based on the chosen format. Modify the filename on-the-fly with
-the `--filename` option:
+## Generating Class diagrams
+
+A UML Class diagram visually represents the classes in your project, including
+their properties (attributes), methods (operations), and the relationships
+between them.
+
+Use the following command to generate Class diagrams:
 
 ```console
-bin/console doctrine:diagram --filename=my-database
+bin/console doctrine:diagram:class
 ```
 
-Alternatively, specify the filename in `config/packages/doctrine_diagram.yaml`:
-
-```yaml
-doctrine_diagram:
-    # ...
-    filename: my-database
-```
-
-!!! TIP
-
-    You don't need to explicitly set filename extension, it's autmatically added according to selected diagram format.
-
-## Output redirection
-
-To redirect the diagram output to a file or another program, set `php://output`
-as the filename. For example:
-
-```console 
-bin/console doctrine:diagram --filename="php://stdout" --format=puml | tee example.puml
-```
-
-## Customize color and style
-
-Change the style of your diagrams using themes.
-
-Specify a theme using the `--theme` option:
+You can also use the following shortcut:
 
 ```console
-bin/console doctrine:diagram --theme=amiga
+bin/console d:d:class
 ```
 
-Alternatively, set the theme in the `doctrine_diagram.yaml` configuration file:
+!!! Info
 
-```yaml
-doctrine_diagram:
-    # ...
-    theme: amiga
-```
+    _DoctrineDiagramBundle_ will only use _Doctrine entities_ to generate the
+    diagram. Additionally, only properties with the `ORM\Column` attribute are
+    displayed, other class properties are ignored.
 
-## Excluding tables
+If you are using the default configuration, a file named `class.svg` will be
+created at the root of your project.
 
-To exclude specific tables from the ER diagram, use the `--exclude`
-option:
+![er diagram](images/class.svg)
+
+If your application uses multiple databases, you can specify which Entity
+Manager to use using the `--em` option:
 
 ```console
-bin/console doctrine:diagram --exclude=table1,table2,table3
+bin/console doctrine:diagram:class --em=customers
 ```
 
-In the config file, use the `exclude` key to declare tables you want to omit:
+In `doctrine_diagram.yaml`:
 
 ```yaml
 doctrine_diagram:
-    # ...
-    exclude:
-        - table1
-        - table2
-        - table3
+    class:
+        em: customers
 ```
 
-## Specify the Doctrine connection
+Set `em` to _null_, and the default Entity Manager will be used.
 
-If a connection is not specified, the `default` connection is used. Use
-the `--connection` option to declare an alternative connection:
+## How to pipe output
+
+Use `php://stdout` as the destination file to redirect image to standard output.
+
+For example:
 
 ```console
-bin/console doctrine:diagram --connection=default
+bin/console doctrine:diagram:er --filename="php://stdout" --format=puml | tee diagram.puml
 ```
 
-Set the default connection in the config file:
+## Known Issues
+
+### Error: "Failed to open stream: HTTP request failed!"
+
+This error occurs when you are trying to generate a diagram in SVG or PNG
+formats, and you are using the public PlantUML server.
+
+The problem is that the diagram you are trying to create is too large, and the
+PlantUML server has limited diagram sizes to avoid abuse.
+
+**Solution 1**
+
+Use PlantUML locally instead of a web server. This is explained
+in [Configuration](configuration.md) page.
+
+**Solution 2**
+
+Generate a diagram in PUML format. This diagram is generated locally and doesn't
+require the PlantUML server. Then, use the `plantuml` executable locally to
+convert the PUML diagram to the desired format.
+
+```console
+bin/console doctrine:diagram:er --format=puml
+bin/console doctrine:diagram:class --format=puml
+```
+
+**Solution 3**
+
+Do not use the public PlantUML
+server; [use your own PlantUML server instead](./plantuml.md).
+
+Then, access your server using the command option `--server`, or in the
+`doctrine_diagram.yaml` file.
+
+### Error 'Unknown column type "uuid" requested'
+
+You encounter the following error when trying to generate a diagram:
+
+> CRITICAL  [console] Error thrown while running command "doctrine:diagram".
+> Message: "Unknown column type "uuid" requested. Any Doctrine type that you use
+> has to be registered with \Doctrine\DBAL\Types\Type::addType().
+
+To fix this error, add a custom type in the doctrine.yaml config file.
+For example:
 
 ```yaml
-doctrine_diagram:
-    # ...
-    connection: alternative
+
+doctrine:
+    dbal:
+        types:
+            uuid: Symfony\Bridge\Doctrine\Types\UuidType
 ```
 
-Set the connection to _null_, and the default connection will be used:
+Source: [Registering custom Mapping Types](https://symfony.com/doc/current/doctrine/dbal.html#registering-custom-mapping-types).
 
-```yaml
-doctrine_diagram:
-    # ...
-    connection: ~
+### Error "Syntax Error"
+
+When trying to generate a Diagram, you get the following error in the terminal:
+
+```console
+Error Output:
+================
+ERROR
+7
+Syntax Error?
+Some diagram description contains errors
 ```
+
+**Solution**
+
+Use a newer version of PlantUML, older versions of PlantUML do not support
+features like _themes_ and custom _namespace separators_.
