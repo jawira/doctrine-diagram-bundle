@@ -24,7 +24,7 @@
   },
   "require": {
     "php": "^8.1",
-    "doctrine/doctrine-bundle": "^2.5",
+    "doctrine/doctrine-bundle": "^2.5 || ^3.0",
     "doctrine/orm": "^2.9 || ^3.0",
     "jawira/db-draw": "^1.6",
     "jawira/doctrine-diagram-contracts": "^1.0",
