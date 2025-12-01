@@ -23,7 +23,7 @@ jobs:
           coverage: xdebug
           tools: phing:v3
 
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       - name: composer:install
         run: phing composer:install
