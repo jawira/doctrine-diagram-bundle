@@ -8,7 +8,6 @@ use Jawira\DoctrineDiagramBundle\Constants\Fallback;
 use Jawira\DoctrineDiagramBundle\Constants\Size;
 use Jawira\DoctrineDiagramBundle\Constants\Format;
 use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
-use Symfony\Component\Config\Definition\Builder\ParentNodeDefinitionInterface;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
@@ -21,8 +20,6 @@ class Configuration implements ConfigurationInterface
   {
     $buildTree = new TreeBuilder(Config::ROOT);
     $rootNode  = $buildTree->getRootNode();
-    ($rootNode instanceof ParentNodeDefinitionInterface) or throw new \RuntimeException('Invalid root node when configuring bundle.');
-
     $rootNode->children()
       ->append($this->erNode())
       ->append($this->classNode())
