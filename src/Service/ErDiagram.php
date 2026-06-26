@@ -6,6 +6,7 @@ namespace Jawira\DoctrineDiagramBundle\Service;
 use Doctrine\DBAL\Connection;
 use Doctrine\Persistence\ManagerRegistry;
 use Jawira\DbDraw\DbDraw;
+use Jawira\DoctrineDiagramContracts\Size;
 use RuntimeException;
 
 class ErDiagram
@@ -42,6 +43,8 @@ class ErDiagram
     ($connection instanceof Connection) or throw new RuntimeException('Cannot get required required Connection');
     $dbDraw = new DbDraw($connection);
 
-    return $dbDraw->generatePuml($size, $theme, $exclude);
+    $size = Size::from($size);
+
+    return $dbDraw->generatePuml($size, $theme, [], $exclude);
   }
 }

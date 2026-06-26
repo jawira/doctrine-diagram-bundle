@@ -4,6 +4,7 @@ namespace Jawira\DoctrineDiagramBundle\Service;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
+use Jawira\DoctrineDiagramContracts\Size;
 use Jawira\EntityDraw\EntityDraw;
 
 class ClassDiagram
@@ -34,6 +35,8 @@ class ClassDiagram
     ($entityManager instanceof EntityManagerInterface) or throw new \RuntimeException('Cannot get required Entity Manager');
     $entityDraw = new EntityDraw($entityManager);
 
-    return $entityDraw->generatePuml($size, $theme, $exclude);
+    $size = Size::from($size);
+
+    return $entityDraw->generatePuml($size, $theme, [], $exclude);
   }
 }
