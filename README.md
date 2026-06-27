@@ -7,6 +7,13 @@
 [![PHP Version Require](http://poser.pugx.org/jawira/doctrine-diagram-bundle/require/php)](https://packagist.org/packages/jawira/doctrine-diagram-bundle)
 [![License](http://poser.pugx.org/jawira/doctrine-diagram-bundle/license)](https://packagist.org/packages/jawira/doctrine-diagram-bundle)
 
+Features:
+
+* Multiple size diagrams: `mini`, `midi`, and `maxi`.
+* File formats: `svg`, `png`, and `puml`.
+* Filtering: display only selected tables/classes.
+* Theme customisation.
+
 ## Installation
 
 ```bash
@@ -16,15 +23,19 @@ composer require jawira/doctrine-diagram-bundle --dev
 
 ## Usage
 
-Run this command to generate an _ER_ diagram:
-
 ```console
+# Entity-relationship diagram
 bin/console doctrine:diagram:er
+
+# Class diagram
+bin/console doctrine:diagram:class
 ```
 
-Then open `er.svg` located at the root of your project:
+Then open `er.svg` and `class.svg` located at the root of your project:
 
-![diagram](docs/images/midi.png)
+![Entity-relationship diagram](docs/images/er.svg)
+
+![Class diagram](docs/images/class.svg)
 
 ## Documentation
 
@@ -32,9 +43,9 @@ Then open `er.svg` located at the root of your project:
 
 ## Contributing
 
-- Please report any bug.
-- If you liked this project, ⭐ star it on GitHub.
-- Or follow me on 𝕏. [![𝕏 Follow](https://img.shields.io/twitter/follow/jawira?style=social)](https://x.com/jawira)
+* Please report any bug.
+* If you liked this project, ⭐ star it on GitHub.
+* Or follow me on 𝕏. [![𝕏 Follow](https://img.shields.io/twitter/follow/jawira?style=social)](https://x.com/jawira)
 
 ## License
 

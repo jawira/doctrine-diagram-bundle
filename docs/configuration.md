@@ -16,30 +16,44 @@ Use `help` command to see available options for `doctrine:diagram:er` and
 
 ```console
 $ bin/console help doctrine:diagram:er
+Description:
+  Create an Entity-Relationship diagram.
+
+Usage:
+  doctrine:diagram:er [options]
+
 Options:
-    --filename=FILENAME      Destination file name.
-    --format=FORMAT          Diagram format (svg, png or puml).
-    --size=SIZE              Diagram size (mini, midi or maxi).
-    --converter=CONVERTER    Which strategy will be used to convert puml to another format (auto, jar or server).
-    --server=SERVER          PlantUML server URL, used to convert puml diagrams to svg or png.
-    --jar=JAR                Path to plantuml.jar, used to convert puml diagrams to svg or png.
-    --connection=CONNECTION  Doctrine connection to use.
-    --theme=THEME            Change diagram colors and style.
-    --exclude=EXCLUDE        Comma separated list of tables to exclude from diagram.
+      --filename=FILENAME      Destination file name.
+      --format=FORMAT          Diagram format (svg, png or puml).
+      --size=SIZE              Diagram size (mini, midi or maxi).
+      --converter=CONVERTER    Which strategy will be used to convert puml to another format (auto, jar or server).
+      --server=SERVER          PlantUML server URL, used to convert puml diagrams to svg or png.
+      --jar=JAR                Path to plantuml.jar, used to convert puml diagrams to svg or png.
+      --connection=CONNECTION  Doctrine connection to use.
+      --theme=THEME            Theme name, this will change colors and style.
+      --include=INCLUDE        Name of the table to include in the diagram. (multiple values allowed)
+      --exclude=EXCLUDE        Name of the table to exclude from the diagram. (multiple values allowed)
 ```
 
 ```console
 $ bin/console help doctrine:diagram:class
+Description:
+  Create a Class diagram.
+
+Usage:
+  doctrine:diagram:class [options]
+
 Options:
-    --filename=FILENAME    Destination file name.
-    --format=FORMAT        Diagram format (svg, png or puml).
-    --size=SIZE            Diagram size (mini, midi or maxi).
-    --converter=CONVERTER  Which strategy will be used to convert puml to another format (auto, jar or server).
-    --server=SERVER        PlantUML server URL, used to convert puml diagrams to svg or png.
-    --jar=JAR              Path to plantuml.jar, used to convert puml diagrams to svg or png.
-    --em=EM                Entity Manager to use.
-    --theme=THEME          Change diagram colors and style.
-    --exclude=EXCLUDE      Comma separated list of tables to exclude from diagram.
+      --filename=FILENAME    Destination file name.
+      --format=FORMAT        Diagram format (svg, png or puml).
+      --size=SIZE            Diagram size (mini, midi or maxi).
+      --converter=CONVERTER  Which strategy will be used to convert puml to another format (auto, jar or server).
+      --server=SERVER        PlantUML server URL, used to convert puml diagrams to svg or png.
+      --jar=JAR              Path to plantuml.jar, used to convert puml diagrams to svg or png.
+      --em=EM                Entity Manager to use.
+      --theme=THEME          Theme name, this will change colors and style.
+      --include=INCLUDE      Name of the class to include in the diagram. (multiple values allowed)
+      --exclude=EXCLUDE      Name of the class to exclude from the diagram. (multiple values allowed)
 ```
 
 !!! Tip
@@ -61,17 +75,23 @@ doctrine_diagram:
         size: midi
         theme: crt-amber
         connection: ~
-        exclude:
+        include:
             - table1
             - table2
+        exclude:
+            - table3
+            - table4
     class:
         filename: '%kernel.project_dir%/class'
         size: mini
         theme: plain
         em: ~
-        exclude:
+        include:
             - App\Entity\Client
-            - App\Entity\Feedback
+            - App\Entity\Feeback
+        exclude:
+            - App\Entity\User
+            - App\Entity\CreditCard
     convert:
         format: svg
         converter: auto
@@ -179,32 +199,89 @@ _crt-amber_ theme:
 
 ![sandstone theme](./images/class-crt-amber.svg)
 
-## Excluding tables and classes
+## Filtering tables and classes
 
-To exclude specific tables from the ER diagram and classes from Class diagram,
-use the `--exclude` option. Use comma to specify multiple values.
+You can customize the elements appearing in a diagram using `--include` and
+`--exclude` options.
+
+To select specific elements to appear (tables from the ER diagram and classes
+from Class diagram), use the `--include` option. On the other hand use the
+`--exclude` option to remove elements.
+
+Internally, these two filters are applied in order, first the `--include` option
+and then the `--exclude` option is used on the tables specified by the
+`--include` option. When the `--include` options is omitted, all the tables in
+the database are going to be used.
+
+Entity-relationship diagram examples:
 
 ```console
-bin/console doctrine:diagram:er --exclude=table1,table2,table3
-bin/console doctrine:diagram:class --exclude=App\\Entity\\Part
+# Display three tables in the diagram
+bin/console doctrine:diagram:er --include=table1 --include=table2 --include=table3
+
+# Hide 'secrets' table
+bin/console doctrine:diagram:er --exclude=secrets
 ```
 
-Note how, in the terminal, we had to escape the backslash character.
+Class diagram examples:
 
-In the config file, use the `exclude` key to declare _tables_ and _classes_ you
-want to omit:
+```console
+# Print all entities but remove 'App\Entity\CreditCard' from the diagram
+bin/console doctrine:diagram:class --exclude=App\\Entity\\CreditCard
+```
+
+!!! TIP
+
+    Note how, in the terminal, we had to escape the backslash character.
+
+Explicitly typing the elements one by one, can be extremely long. This is where
+**wildcards** are very useful:
+
+* Use the `?` wildcard to represent a single character.
+* Use the `*` wildcard to represent multiple characters.
+
+Entity-relationship diagram examples:
+
+```console
+# Display only accounting tables from years 20XX 
+bin/console doctrine:diagram:er --include=accounting_20??
+
+# Remove all tables starting with 'classified'
+bin/console doctrine:diagram:er --exclude=classified*
+```
+
+Class diagram examples:
+
+```console
+# Only use entities from Acme and App namespaces
+bin/console doctrine:diagram:class --include=Acme\\* --include=App\\*
+
+# Remove all entities from Lexik vendor
+bin/console doctrine:diagram:class --exclude=Lexik\\Bundle\\*
+```
+
+In the config file, use the `include` and `exclude` in the same way. 
 
 ```yaml
 doctrine_diagram:
     er:
+        include:
+            - user_*
+            - exams_20??
         exclude:
-            - table1
-            - table2
-            - table3
+            - user_passwords
+            - user_secrets
     class:
+        include:
+            - App\Entity\*
+            - Lexik\*
         exclude:
-            - App\Entity\Part
+            - App\Entity\CreditCard
 ```
+
+!!! TIP
+
+    Remember, when you omit the `include` key, all the tables/classes are used.
 
 ## Change the diagram format
 
