@@ -43,6 +43,7 @@ class ClassCommand extends Command
       ->addOption(Config::JAR, null, InputOption::VALUE_REQUIRED, Info::JAR)
       ->addOption(Config::EM, null, InputOption::VALUE_REQUIRED, Info::EM)
       ->addOption(Config::THEME, null, InputOption::VALUE_REQUIRED, Info::THEME)
+      ->addOption(Config::INCLUDE, null, InputOption::VALUE_REQUIRED | InputOption::VALUE_IS_ARRAY, Info::INCLUDE_CLASS)
       ->addOption(Config::EXCLUDE, null, InputOption::VALUE_REQUIRED | InputOption::VALUE_IS_ARRAY, Info::EXCLUDE_CLASS);
   }
 
@@ -59,9 +60,10 @@ class ClassCommand extends Command
     $jar       = $this->toolbox->readStringOrNullOption($input, Config::JAR);
     $filename  = $this->toolbox->readStringOrNullOption($input, Config::FILENAME);
     $theme     = $this->toolbox->readStringOrNullOption($input, Config::THEME);
+    $include   = $this->toolbox->readArrayOrNullOption($input, Config::INCLUDE);
     $exclude   = $this->toolbox->readArrayOrNullOption($input, Config::EXCLUDE);
 
-    $puml     = $this->classDiagram->generatePuml($emName, $size, $theme, $exclude);
+    $puml     = $this->classDiagram->generatePuml($emName, $size, $theme, $include, $exclude);
     $content  = $this->conversionService->convert($puml, $format, $converter, $server, $jar);
     $fullName = $this->dumpService->dumpClassDiagram($content, $filename, $format);
 

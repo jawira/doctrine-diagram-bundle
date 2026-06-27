@@ -5,6 +5,8 @@ namespace Jawira\DoctrineDiagramBundle\Constants;
 /**
  * All different versions for a Diagram.
  *
+ * Must match values from {@see \Jawira\DoctrineDiagramContracts\Size}.
+ *
  * @internal
  */
 class Size

@@ -20,5 +20,6 @@ class Config
   public const CONVERTER = 'converter';
   public const CONNECTION = 'connection';
   public const THEME = 'theme';
+  public const INCLUDE = 'include';
   public const EXCLUDE = 'exclude';
 }

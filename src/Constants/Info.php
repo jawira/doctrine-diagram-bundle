@@ -18,7 +18,9 @@ class Info
   public const CONNECTION = 'Doctrine connection to use.';
   public const EM = 'Entity Manager to use.';
   public const THEME = 'Theme name, this will change colors and style.';
+  public const INCLUDE_ER = 'Name of the table to include in the diagram.';
   public const EXCLUDE_ER = 'Name of the table to exclude from the diagram.';
+  public const INCLUDE_CLASS = 'Name of the class to include in the diagram.';
   public const EXCLUDE_CLASS = 'Name of the class to exclude from the diagram.';
   public const  HELP = <<<'HELP'
     <comment>THEMES</comment>

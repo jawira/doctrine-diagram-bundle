@@ -21,6 +21,7 @@ class DoctrineDiagramExtension extends Extension
      *      filename: null|non-empty-string,
      *      theme: null|non-empty-string,
      *      connection: null|non-empty-string,
+     *      include: null|list<string>,
      *      exclude: null|list<string>
      *    },
      *    class: array{
@@ -28,6 +29,7 @@ class DoctrineDiagramExtension extends Extension
      *      filename: null|non-empty-string,
      *      theme: null|non-empty-string,
      *      em: null|non-empty-string,
+     *      include: null|list<string>,
      *      exclude: null|list<string>
      *    },
      *    convert: array{
@@ -45,12 +47,14 @@ class DoctrineDiagramExtension extends Extension
     $container->setParameter(Toolbox::concat(C::ROOT, C::ER, C::FILENAME), $config[C::ER][C::FILENAME]);
     $container->setParameter(Toolbox::concat(C::ROOT, C::ER, C::THEME), $config[C::ER][C::THEME]);
     $container->setParameter(Toolbox::concat(C::ROOT, C::ER, C::CONNECTION), $config[C::ER][C::CONNECTION]);
+    $container->setParameter(Toolbox::concat(C::ROOT, C::ER, C::INCLUDE), $config[C::ER][C::INCLUDE]);
     $container->setParameter(Toolbox::concat(C::ROOT, C::ER, C::EXCLUDE), $config[C::ER][C::EXCLUDE]);
     // class
     $container->setParameter(Toolbox::concat(C::ROOT, C::CLASSN, C::SIZE), $config[C::CLASSN][C::SIZE]);
     $container->setParameter(Toolbox::concat(C::ROOT, C::CLASSN, C::FILENAME), $config[C::CLASSN][C::FILENAME]);
     $container->setParameter(Toolbox::concat(C::ROOT, C::CLASSN, C::THEME), $config[C::CLASSN][C::THEME]);
     $container->setParameter(Toolbox::concat(C::ROOT, C::CLASSN, C::EM), $config[C::CLASSN][C::EM]);
+    $container->setParameter(Toolbox::concat(C::ROOT, C::CLASSN, C::INCLUDE), $config[C::CLASSN][C::INCLUDE]);
     $container->setParameter(Toolbox::concat(C::ROOT, C::CLASSN, C::EXCLUDE), $config[C::CLASSN][C::EXCLUDE]);
     // convert
     $container->setParameter(Toolbox::concat(C::ROOT, C::CONVERT, C::FORMAT), $config[C::CONVERT][C::FORMAT]);

@@ -15,19 +15,23 @@ class ClassDiagram
     private readonly string          $theme,
     private readonly ?string         $em,
     /** @var string[] */
+    private readonly array           $include,
+    /** @var string[] */
     private readonly array           $exclude,
   ) {
   }
 
   /**
-   * @param null|string[] $exclude List of classes to exclude from the class diagram.
+   * @param null|string[] $include List of classes to add to the class diagram.
+   * @param null|string[] $exclude List of classes to remove from the class diagram.
    */
-  public function generatePuml(?string $emName, ?string $size, ?string $theme, ?array $exclude): string
+  public function generatePuml(?string $emName, ?string $size, ?string $theme, ?array $include, ?array $exclude): string
   {
     // Fallback values from doctrine_diagram.yaml
     $emName  ??= $this->em;
     $size    ??= $this->size;
     $theme   ??= $this->theme;
+    $include ??= $this->include;
     $exclude ??= $this->exclude;
 
     // Generate puml diagram
@@ -37,6 +41,6 @@ class ClassDiagram
 
     $size = Size::from($size);
 
-    return $entityDraw->generatePuml($size, $theme, [], $exclude);
+    return $entityDraw->generatePuml($size, $theme, $include, $exclude);
   }
 }

@@ -25,6 +25,7 @@ return function (ContainerConfigurator $container): void {
     ->arg('$size', param(Toolbox::concat(C::ROOT, C::ER, C::SIZE)))
     ->arg('$theme', param(Toolbox::concat(C::ROOT, C::ER, C::THEME)))
     ->arg('$connection', param(Toolbox::concat(C::ROOT, C::ER, C::CONNECTION)))
+    ->arg('$include', param(Toolbox::concat(C::ROOT, C::ER, C::INCLUDE)))
     ->arg('$exclude', param(Toolbox::concat(C::ROOT, C::ER, C::EXCLUDE)));
 
   $services->set('jawira.doctrine_diagram.class_diagram', ClassDiagram::class)
@@ -34,6 +35,7 @@ return function (ContainerConfigurator $container): void {
     ->arg('$size', param(Toolbox::concat(C::ROOT, C::CLASSN, C::SIZE)))
     ->arg('$theme', param(Toolbox::concat(C::ROOT, C::CLASSN, C::THEME)))
     ->arg('$em', param(Toolbox::concat(C::ROOT, C::CLASSN, C::EM)))
+    ->arg('$include', param(Toolbox::concat(C::ROOT, C::CLASSN, C::INCLUDE)))
     ->arg('$exclude', param(Toolbox::concat(C::ROOT, C::CLASSN, C::EXCLUDE)));
 
   $services->set('jawira.doctrine_diagram.conversion_service', ConversionService::class)
