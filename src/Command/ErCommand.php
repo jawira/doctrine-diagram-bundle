@@ -42,6 +42,7 @@ class ErCommand extends Command
       ->addOption(Config::JAR, null, InputOption::VALUE_REQUIRED, Info::JAR)
       ->addOption(Config::CONNECTION, null, InputOption::VALUE_REQUIRED, Info::CONNECTION)
       ->addOption(Config::THEME, null, InputOption::VALUE_REQUIRED, Info::THEME)
+      ->addOption(Config::INCLUDE, null, InputOption::VALUE_REQUIRED | InputOption::VALUE_IS_ARRAY, Info::INCLUDE_ER)
       ->addOption(Config::EXCLUDE, null, InputOption::VALUE_REQUIRED | InputOption::VALUE_IS_ARRAY, Info::EXCLUDE_ER);
   }
 
@@ -58,9 +59,10 @@ class ErCommand extends Command
     $jar            = $this->toolbox->readStringOrNullOption($input, Config::JAR);
     $filename       = $this->toolbox->readStringOrNullOption($input, Config::FILENAME);
     $theme          = $this->toolbox->readStringOrNullOption($input, Config::THEME);
+    $include        = $this->toolbox->readArrayOrNullOption($input, Config::INCLUDE);
     $exclude        = $this->toolbox->readArrayOrNullOption($input, Config::EXCLUDE);
 
-    $puml     = $this->erDiagram->generatePuml($connectionName, $size, $theme, $exclude);
+    $puml     = $this->erDiagram->generatePuml($connectionName, $size, $theme, $include, $exclude);
     $content  = $this->conversionService->convert($puml, $format, $converter, $server, $jar);
     $fullName = $this->dumpService->dumpErDiagram($content, $filename, $format);
 

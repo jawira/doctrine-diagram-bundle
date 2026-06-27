@@ -17,6 +17,8 @@ class ErDiagram
     private readonly string          $theme,
     private readonly ?string         $connection,
     /** @var string[] */
+    private readonly array           $include,
+    /** @var string[] */
     private readonly array           $exclude,
   ) {
   }
@@ -28,14 +30,16 @@ class ErDiagram
    * The arguments of this method come from the console. If no values are provided, then the values from the config
    * file are used as a fallback.
    *
-   * @param null|string[] $exclude List of tables to exclude from the diagram.
+   * @param null|string[] $include List of tables to add to the diagram.
+   * @param null|string[] $exclude List of tables to remove from the diagram.
    */
-  public function generatePuml(?string $connectionName, ?string $size, ?string $theme, ?array $exclude): string
+  public function generatePuml(?string $connectionName, ?string $size, ?string $theme, ?array $include, ?array $exclude): string
   {
     // Fallback values from doctrine_diagram.yaml
     $connectionName ??= $this->connection;
     $size           ??= $this->size;
     $theme          ??= $this->theme;
+    $include        ??= $this->include;
     $exclude        ??= $this->exclude;
 
     // Generate puml diagram
@@ -45,6 +49,6 @@ class ErDiagram
 
     $size = Size::from($size);
 
-    return $dbDraw->generatePuml($size, $theme, [], $exclude);
+    return $dbDraw->generatePuml($size, $theme, $include, $exclude);
   }
 }
