@@ -1,10 +1,13 @@
 PlantUML is required to save diagrams in `png` or `svg` format.
+By default, _DoctrineDiagramBundle_ will use the public PlantUML web
+server: <https://www.plantuml.com/plantuml/> to generate those images.
 
 _DoctrineDiagramBundle_ can use either a locally installed version of PlantUML
 or connect to a remote PlantUML server.
 
-Additionally, this bundle requires a relatively newer version of PlantUML,
-anything greater than `1.2022.0` should be ok.
+This bundle requires a relatively recent version of PlantUML; versions newer
+than `v1.2022.0` are recommended. Check the
+[Known issues](known-issues.md) page for version-specific compatibility notes.
 
 ## Installing PlantUML locally
 
@@ -36,6 +39,31 @@ You will find `plantuml.jar` inside `vendor` directory:<br>
 A PlantUML server is required if you want to save diagrams in `png` and `svg`
 formats.
 
+### PlantUML server with Docker
+
+An alternative method to set up a PlantUML server involves leveraging Docker.
+
+Use Docker to establish a PlantUML server using the following command. This
+command ensures that the server is accessible via port 8080.
+
+```console
+docker run -d -p 8080:8080 plantuml/plantuml-server:jetty
+```
+
+The PlantUML server endpoint includes the `/plantuml` path. Set it in
+`doctrine_diagram.yaml` as shown below.
+
+```yaml
+# config/packages/doctrine_diagram.yaml
+doctrine_diagram:
+    # ...
+    convert:
+        server: 'http://localhost:8080/plantuml'
+```
+
+For further details, refer
+to: [PlantUML in Docker Hub](https://hub.docker.com/r/plantuml/plantuml-server)
+
 ### Running PlantUML picoserver
 
 First, ensure you have PlantUML installed on your system.
@@ -60,28 +88,3 @@ doctrine_diagram:
 
 For more information
 visit: [PlantUML Picoweb Documentation](https://plantuml.com/picoweb)
-
-### PlantUML server with Docker
-
-An alternative method to set up a PlantUML server involves leveraging Docker.
-
-Use Docker to establish a PlantUML server using the following command. This
-command ensures that the server is accessible via port 8080.
-
-```console
-docker run -d -p 8080:8080 plantuml/plantuml-server:jetty
-```
-
-Notice that, when using Docker, `/plantuml` path is not used
-in `doctrine_diagram.yaml`.
-
-```yaml
-# config/packages/doctrine_diagram.yaml
-doctrine_diagram:
-    # ...
-    convert:
-        server: 'http://localhost:8080/plantuml'
-```
-
-For further details, refer
-to: [PlantUML in Docker Hub](https://hub.docker.com/r/plantuml/plantuml-server)

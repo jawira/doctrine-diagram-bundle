@@ -63,7 +63,7 @@
 
   <target name="mkdocs:serve" description="Run local server">
     <exec executable="mkdocs" passthru="true" checkreturn="true">
-      <env key="SITE_NAME" value="'Doctrine Diagram Bundle phing'"/>
+      <env key="SITE_NAME" value="'Doctrine Diagram Bundle - dev'"/>
       <arg value="serve"/>
       <arg value="--verbose"/>
     </exec>

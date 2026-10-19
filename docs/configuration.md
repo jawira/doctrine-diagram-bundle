@@ -1,11 +1,11 @@
 ## How to configure the bundle
 
-You have to ways to configure _DoctrineDiagramBundle_.
+There are two ways to configure _DoctrineDiagramBundle_.
 
 1. Using a configuration file `config/packages/doctrine_diagram.yaml`.
 2. Using command's options.
 
-!!! Info
+!!! info
 
     Command line options will always have priority over configuration file.
 
@@ -56,7 +56,7 @@ Options:
       --exclude=EXCLUDE      Name of the class to exclude from the diagram. (multiple values allowed)
 ```
 
-!!! Tip
+!!! tip
 
     The commands `doctrine:diagram:er` and `doctrine:diagram:class` share 
     almost all the same options, the only difference is that 
@@ -131,10 +131,10 @@ doctrine_diagram:
         filename: '%kernel.project_dir%/employees'
 ```
 
-!!! TIP
+!!! tip
 
-    You don't need to explicitly set filename extension, it's autmatically 
-    added according to selected diagram format.
+    You don't need to set a filename extension; it is automatically added
+    according to the selected diagram format.
 
 ## Set diagram size
 
@@ -153,7 +153,7 @@ bin/console doctrine:diagram:er --size=mini
 bin/console doctrine:diagram:class --size=midi
 ```
 
-Alternatively, set the diagram size in the config file:
+Alternatively, set the size in the config file:
 
 ```yaml
 doctrine_diagram:
@@ -174,7 +174,7 @@ bin/console doctrine:diagram:er --theme=sandstone
 bin/console doctrine:diagram:class --theme=crt-amber
 ```
 
-Alternatively, set the diagram size in the config file:
+Alternatively, set the theme in the config file:
 
 ```yaml
 doctrine_diagram:
@@ -230,7 +230,7 @@ Class diagram examples:
 bin/console doctrine:diagram:class --exclude=App\\Entity\\CreditCard
 ```
 
-!!! TIP
+!!! tip
 
     Note how, in the terminal, we had to escape the backslash character.
 
@@ -260,7 +260,7 @@ bin/console doctrine:diagram:class --include=Acme\\* --include=App\\*
 bin/console doctrine:diagram:class --exclude=Lexik\\Bundle\\*
 ```
 
-In the config file, use the `include` and `exclude` in the same way. 
+In the config file, use the `include` and `exclude` in the same way.
 
 ```yaml
 doctrine_diagram:
@@ -279,7 +279,7 @@ doctrine_diagram:
             - App\Entity\CreditCard
 ```
 
-!!! TIP
+!!! tip
 
     Remember, when you omit the `include` key, all the tables/classes are used.
 
@@ -303,31 +303,28 @@ doctrine_diagram:
         format: svg
 ```
 
-!!! TIP
+!!! tip
 
     If you encounter difficulties generating your diagram, use the `puml` 
     format as it doesn't require PlantUML.
 
 ## Specifying how to convert PlantUML diagrams
 
-When generating diagrams, _DoctrineDiagramBundle_ will always generate
-diagrams in `puml` format first. If the requested format is `puml`, then the
-diagram will be returned as is.
-Otherwise, if the requested format is `png` or `svg`, you will need to
-configure a "`converter`".
+Internally, _DoctrineDiagramBundle_ will always generate diagrams
+in `puml` format first. If the requested format is `puml`, then the diagram will
+be returned as is. Otherwise, if the requested format is `png` or `svg`, you
+will need to configure a "`converter`".
 
-PlantUML can be used in two possible ways:
+PlantUML can be used with two kind of _converters_:
 
 1. As a local `plantuml.jar` file.
 2. As a remote PlantUML server.
 
-Use the following options to set the `jar` file.
+Use the following options to use a **jar file** to convert diagrams.
 
 ```console
 bin/console doctrine:diagram:er --converter=jar --jar=/usr/share/plantuml/plantuml.jar
 ```
-
-You can achieve the same using the configuration file:
 
 ```yaml
 doctrine_diagram:
@@ -336,13 +333,11 @@ doctrine_diagram:
         jar: /usr/share/plantuml/plantuml.jar 
 ```
 
-The other alternative to generate images is to use a remote PlantUML server:
+The other alternative to generate images is to use a remote **PlantUML server**:
 
 ```console
 bin/console doctrine:diagram:er --converter=server --server=http://localhost:8080/plantuml
 ```
-
-You can achieve the same using the configuration file:
 
 ```yaml
 doctrine_diagram:
@@ -351,9 +346,13 @@ doctrine_diagram:
         server: http://localhost:8080/plantuml 
 ```
 
-The recommended configuration is `auto`, with this setting
-_DoctrineDiagramBundle_ will search for `plantuml.jar` first , if
-the jar file is not found then it will use a remote PlantUML server.
+The default and recommended setting is `auto`. _DoctrineDiagramBundle_ checks
+for a locally available PlantUML installation first, then falls back to the
+configured server. If you install PlantUML with the
+[
+`jawira/plantuml` Composer package](./plantuml.md#installing-plantuml-with-composer),
+auto mode detects its `plantuml.jar` automatically; you do not need to set the
+`jar` path. See [PlantUML setup](./plantuml.md) for installation instructions.
 
 ```console
 bin/console doctrine:diagram:er --converter=auto

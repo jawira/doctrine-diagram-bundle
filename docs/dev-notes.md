@@ -1,5 +1,3 @@
-# Dev notes
-
 ## Dev project
 
 Add this to `composer.json` in your **project** to use the local copy of **Diagram Bundle**.
