@@ -1,41 +1,47 @@
-## Install _DoctrineDiagramBundle_ with Symfony Flex
+## Requirements
 
-Open a command console, enter your project directory and enable recipes:
+_DoctrineDiagramBundle_ requires PHP 8.2 or later, Symfony 7 or 8, Doctrine
+Bundle 2.5 or later in the 2.x series or 3.x, and Doctrine ORM 2.9 or later in
+the 2.x series or 3.x. Composer installs the required dependencies with the
+bundle.
+
+PlantUML is needed only when you want diagrams in `svg` or `png` format. You can
+install it locally or use a PlantUML server; see [PlantUML setup](plantuml.md).
+The `puml` format does not require PlantUML.
+
+## Install with Symfony Flex
+
+In your project directory, allow community-contributed Symfony recipes if you
+have not already enabled them:
 
 ```console
 composer config extra.symfony.allow-contrib true
 ```
 
-Then install _DoctrineDiagramBundle_:
+Then install the bundle as a development dependency:
 
 ```console
 composer require jawira/doctrine-diagram-bundle --dev
 ```
 
-## Applications that don't use Symfony Flex
+Symfony Flex installs the bundle recipe, which registers the bundle for the
+`dev` and `test` environments. Review the recipe changes in your project.
 
-Follow these steps to install DoctrineDiagramBundle in project that don't use
-Symfony Flex.
+## Install without Symfony Flex
 
-**Step 1: Download the Bundle**
-
-Open a command console, enter your project directory and execute the following
-command to download the latest stable version of this bundle:
+Install the bundle with Composer:
 
 ```console
 composer require jawira/doctrine-diagram-bundle --dev
 ```
 
-**Step 2: Enable the Bundle**
-
-Then, enable the bundle by adding it to the list of registered bundles in
-the `config/bundles.php` file of your project:
+Register the bundle in `config/bundles.php`:
 
 ```php
-// config/bundles.php
+<?php
 
 return [
     // ...
-    \Jawira\DoctrineDiagramBundle\DoctrineDiagramBundle::class => ['dev' => true, 'test' => true ],
+    Jawira\DoctrineDiagramBundle\DoctrineDiagramBundle::class => ['dev' => true, 'test' => true],
 ];
 ```
