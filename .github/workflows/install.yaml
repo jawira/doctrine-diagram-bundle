@@ -4,26 +4,22 @@ on:
   pull_request:
 
 jobs:
-  sy70:
+  sy7x:
     strategy:
       matrix:
-        sf: [ '7.0.*' ]
-        php: [ '8.2','8.3','8.4','8.5','8.6' ]
-        composer-flag: [ '--prefer-lowest', '--ansi' ]
+        sf: [ '7.4.*' ]
+        php: [ '8.2','8.3','8.4','8.5' ]
     uses: ./.github/workflows/install-bundle.yaml
     with:
       symfony: ${{ matrix.sf }}
       php: ${{ matrix.php }}
-      composer-flag: ${{ matrix.composer-flag }}
 
-  sy80:
+  sy8x:
     strategy:
       matrix:
-        sf: [ '8.0.*' ]
-        php: [ '8.4','8.5','8.6' ]
-        composer-flag: [ '--prefer-lowest', '--ansi' ]
+        sf: [ '8.0.*', '8.1.*' ]
+        php: [ '8.4','8.5' ]
     uses: ./.github/workflows/install-bundle.yaml
     with:
       symfony: ${{ matrix.sf }}
       php: ${{ matrix.php }}
-      composer-flag: ${{ matrix.composer-flag }}

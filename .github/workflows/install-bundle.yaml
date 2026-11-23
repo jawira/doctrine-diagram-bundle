@@ -7,9 +7,6 @@ on:
       php:
         required: true
         type: string
-      composer-flag:
-        required: true
-        type: string
 
 
 jobs:
@@ -27,6 +24,8 @@ jobs:
           tools: composer:v2
 
       - name: Install Symfony
+        env:
+          COMPOSER_NO_BLOCKING: 1
         run: composer create-project symfony/skeleton demo-project ${{ inputs.symfony }}
 
       - name: Configure composer.json
@@ -36,8 +35,10 @@ jobs:
           composer config --ansi minimum-stability dev
 
       - name: Install jawira/doctrine-diagram-bundle
+        env:
+          COMPOSER_NO_BLOCKING: 1
         run: |
           cd ./demo-project
           composer require --ansi jawira/doctrine-diagram-bundle:dev-${{ github.event.pull_request.head.ref }}
           rm -rf vendor composer.lock
-          composer update --ansi --no-interaction --prefer-dist --no-scripts ${{ inputs.composer-flag }}
+          composer update --ansi --no-interaction --prefer-dist --no-scripts
