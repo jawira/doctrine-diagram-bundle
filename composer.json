@@ -49,6 +49,9 @@
   "suggest": {
     "jawira/plantuml": "Install PlantUML executable/jar with Composer."
   },
+  "conflict": {
+    "jawira/plantuml": "v1.2026.7.* || v1.2026.8.*"
+  },
   "autoload": {
     "psr-4": {
       "Jawira\\DoctrineDiagramBundle\\": "src/"
