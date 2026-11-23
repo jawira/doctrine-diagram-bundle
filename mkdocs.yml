@@ -3,6 +3,8 @@ copyright: © 2023-2026 Jawira Portugal
 site_author: Jawira Portugal
 strict: true
 use_directory_urls: false
+repo_url: https://github.com/jawira/doctrine-diagram-bundle
+repo_name: jawira/doctrine-diagram-bundle
 nav:
     - 'index.md'
     - Install the bundle: 'installing.md'
