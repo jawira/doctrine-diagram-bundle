@@ -14,7 +14,7 @@ on:
 
 jobs:
   install-bundle:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
 
